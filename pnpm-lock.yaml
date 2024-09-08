@@ -17,6 +17,9 @@ importers:
       '@fontsource/roboto':
         specifier: ^5.0.15
         version: 5.0.15
+      '@fontsource/spirax':
+        specifier: ^5.0.14
+        version: 5.0.14
       '@mui/icons-material':
         specifier: ^6.0.2
         version: 6.0.2(@mui/material@6.0.2(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)
@@ -428,6 +431,9 @@ packages:
 
   '@fontsource/roboto@5.0.15':
     resolution: {integrity: sha512-352XiID9jfwmYaHpdmS3ocGJi3PA+vOm4HzJIRfSyPEyLP6dZN8iiEKUbdAfB5YXQO3YxO2KZpR+R28q2zMiYw==}
+
+  '@fontsource/spirax@5.0.14':
+    resolution: {integrity: sha512-VZsgu4N4ySsyw+AlkCp7V14dhpo8S2TWk8NyUCedFYv2vWMH+FG7DpfwvBPFzaG7gaEC91AVrEYdw125iwVhyQ==}
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -2267,6 +2273,8 @@ snapshots:
   '@eslint/object-schema@2.1.4': {}
 
   '@fontsource/roboto@5.0.15': {}
+
+  '@fontsource/spirax@5.0.14': {}
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
