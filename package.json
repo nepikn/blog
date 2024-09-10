@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
     "lint": "eslint .",
     "lint:css": "stylelint \"src/**/*.jsx\"",
+    "server": "json-server db.json",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -17,6 +18,8 @@
     "@fontsource/spirax": "^5.0.14",
     "@mui/icons-material": "^6.0.2",
     "@mui/material": "^6.0.2",
+    "axios": "^1.7.7",
+    "json-server": "1.0.0-beta.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1",
@@ -36,5 +39,6 @@
     "stylelint": "^16.9.0",
     "stylelint-config-standard": "^36.0.1",
     "vite": "^5.4.1"
-  }
+  },
+  "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
 }

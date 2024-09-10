@@ -1,0 +1,22 @@
+{
+  "comments": [
+    {
+      "body": "some comment",
+      "id": 1,
+      "postId": 1
+    }
+  ],
+  "posts": [
+    {
+      "author": "typicode",
+      "id": 1,
+      "title": "json-server"
+    }
+  ],
+  "users": [
+    {
+      "name": "owo",
+      "password": "value"
+    }
+  ]
+}
