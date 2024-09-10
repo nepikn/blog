@@ -10,7 +10,7 @@ export async function getUser({ request }) {
   const token = localStorage.getItem("user");
   if (!token) return null;
 
-  const { data } = await api.get("me", {
+  const { data } = await api.get("/me", {
     headers: { Authorization: `Bearer ${token}` },
   });
 

@@ -4,7 +4,7 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import { action, auth } from "./handler/actions";
+import { action, login } from "./handler/actions";
 import { getUser, loader } from "./handler/loaders";
 import Error from "./routes/error";
 import Root from "./routes/root";
@@ -15,23 +15,22 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     element: <Root />,
     loader: getUser,
-    action: action,
+    action: login,
     children: [
       {
         errorElement: <Error />,
         children: [
           { index: true, element: <Index /> },
           {
-            path: "doggo/:id",
-            element: <Root />,
-            loader: loader,
-            action: action,
+            // path: "doggo/:id",
+            // element: <Root />,
+            // loader: loader,
+            // action: action,
           },
         ],
       },
     ],
   },
-  { action: auth, path: "auth/" },
 ]);
 
 createRoot(document.getElementById("root")).render(

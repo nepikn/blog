@@ -2,6 +2,7 @@ import "@fontsource/roboto";
 import "@fontsource/spirax";
 import { ArrowForward } from "@mui/icons-material";
 import {
+  Avatar,
   Button,
   Dialog,
   DialogActions,
@@ -13,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { redirect } from "react-router-dom";
 import { Form } from "react-router-dom";
 
 const StyledHeader = styled("header")({
@@ -26,11 +28,29 @@ const StyledHeader = styled("header")({
 });
 
 const Trademark = () => (
-  <Typography variant="h1">Mindly</Typography>
+  <Typography variant="trademark">Mindly</Typography>
 );
 
-export function Header({ children }) {
+export function Header({ user, err }) {
+  return (
+    <StyledHeader>
+      <Trademark />
+      <Button
+        onClick={() => {
+          localStorage.clear();
+          redirect("");
+        }}
+      >
+        !
+      </Button>
+      {user ? <Avatar /> : <SignIn err={err} />}
+    </StyledHeader>
+  );
+}
+
+export function SignIn({ err }) {
   const [dialogOpened, setDialogOpened] = useState(false);
+  const [error, setError] = useState(!!err);
 
   function handleOpen() {
     setDialogOpened(true);
@@ -41,8 +61,7 @@ export function Header({ children }) {
   }
 
   return (
-    <StyledHeader>
-      <Trademark />
+    <>
       <Button
         variant="contained"
         onClick={handleOpen}
@@ -60,11 +79,8 @@ export function Header({ children }) {
         maxWidth="xs"
         open={dialogOpened}
         onClose={handleClose}
-        PaperProps={{
-          component: Form,
-          method: "post",
-          action: "auth/",
-        }}
+        component={Form}
+        method="post"
       >
         <DialogTitle sx={{ paddingBottom: 0 }}>
           <Trademark />
@@ -74,9 +90,9 @@ export function Header({ children }) {
             Inspire Someone by your Stories and Writing
           </DialogContentText>
           <TextField
-            autoFocus
             required
-            name="username"
+            defaultValue={"owo"}
+            name="name"
             label="Username"
             type="text"
             variant="standard"
@@ -84,11 +100,15 @@ export function Header({ children }) {
           />
           <TextField
             required
+            autoFocus
             name="password"
             label="Password"
             type="password"
             variant="standard"
             margin="dense"
+            error={!!err}
+            helperText={err ? "Wrong :(" : ""}
+            // onChange={() => setError(false)}
           />
         </DialogContent>
         <DialogActions>
@@ -102,6 +122,6 @@ export function Header({ children }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </StyledHeader>
+    </>
   );
 }

@@ -7,9 +7,17 @@ export async function action({ request, params }) {
   return redirect(`/`);
 }
 
-export async function signIn({ request, params }) {
-  // todo
-  const token = await api.post("login", request); // todo
+export async function login({ request, params }) {
+  const body = Object.fromEntries(await request.formData());
+  try {
+    const { data: token } = await api.post("/login", body);
 
-  return redirect(`/`);
+    localStorage.setItem("user", token);
+
+    redirect("");
+
+    return null;
+  } catch (error) {
+    return error;
+  }
 }
