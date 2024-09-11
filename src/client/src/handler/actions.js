@@ -1,23 +1,37 @@
 import { redirect } from "react-router-dom";
 import { api } from "./api";
 
+/** @param {{ request: Request}} */
 export async function action({ request, params }) {
-  // todo
+  //
 
   return redirect(`/`);
 }
 
-export async function login({ request, params }) {
-  const body = Object.fromEntries(await request.formData());
-  try {
-    const { data: token } = await api.post("/login", body);
+/** @param {{ request: Request}} */
+export async function auth({ request, params }) {
+  switch (request.method) {
+    case "DELETE": {
+      localStorage.clear();
+      redirect("");
 
-    localStorage.setItem("user", token);
+      return null;
+    }
+    case "POST": {
+      const body = Object.fromEntries(await request.formData());
+      try {
+        const { data: token } = await api.post("/login", body);
 
-    redirect("");
+        localStorage.setItem("user", token);
+        redirect("");
 
-    return null;
-  } catch (error) {
-    return error;
+        return null;
+      } catch (error) {
+        return error;
+      }
+    }
+
+    default:
+      break;
   }
 }

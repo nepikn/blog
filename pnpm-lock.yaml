@@ -49,6 +49,9 @@ importers:
       styled-theming:
         specifier: ^2.2.0
         version: 2.2.0
+      title-case:
+        specifier: ^4.3.1
+        version: 4.3.1
     devDependencies:
       '@eslint/js':
         specifier: ^9.9.0
@@ -2652,6 +2655,9 @@ packages:
   timers-ext@0.1.8:
     resolution: {integrity: sha512-wFH7+SEAcKfJpfLPkrgMPvvwnEtj8W4IurvEyrKsDleXnKLCDw71w8jltvfLa8Rm4qQxxT4jmDBYbJG/z7qoww==}
     engines: {node: '>=0.12'}
+
+  title-case@4.3.1:
+    resolution: {integrity: sha512-VnPxQ+/j0X2FZ4ceGq1oLruTLjtN5Ul4sam5ypd4mDZLm1eHwkwip1gLxqhON/j4qyTlUlfPKslE/t4NPSlxhg==}
 
   to-fast-properties@2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
@@ -5591,6 +5597,8 @@ snapshots:
     dependencies:
       es5-ext: 0.10.64
       next-tick: 1.1.0
+
+  title-case@4.3.1: {}
 
   to-fast-properties@2.0.0: {}
 

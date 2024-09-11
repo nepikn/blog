@@ -4,18 +4,18 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import { action, login } from "./handler/actions";
-import { getUser, loader } from "./handler/loaders";
+import { auth } from "./handler/actions";
+import { getUser } from "./handler/loaders";
+import Index from "./routes";
 import Error from "./routes/error";
 import Root from "./routes/root";
-import Index from "./routes";
 
 const router = createBrowserRouter([
   {
     errorElement: <Error />,
     element: <Root />,
     loader: getUser,
-    action: login,
+    action: auth,
     children: [
       {
         errorElement: <Error />,

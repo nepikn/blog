@@ -1,6 +1,13 @@
 import "@fontsource/roboto";
 import "@fontsource/spirax";
-import { ArrowForward } from "@mui/icons-material";
+import {
+  ArrowForward,
+  EqualizerOutlined,
+  LogoutOutlined,
+  PersonOutlined,
+  SettingsOutlined,
+  TitleOutlined,
+} from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -9,20 +16,27 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Divider,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
   styled,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { redirect } from "react-router-dom";
-import { Form } from "react-router-dom";
+import { useRef } from "react";
+import { Form, NavLink } from "react-router-dom";
+import { titleCase } from "title-case";
+import { useToggle } from "../../handler/hooks";
 
 const StyledHeader = styled("header")({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  minHeight: "8rem",
-  paddingInline: "3em",
+  paddingInline: "3rem",
   background: "#fcfcfc",
   borderBottom: "1px solid #DBDBDB",
 });
@@ -33,32 +47,88 @@ const Trademark = () => (
 
 export function Header({ user, err }) {
   return (
-    <StyledHeader>
+    <StyledHeader sx={{ paddingBlock: user ? "1rem" : "2rem" }}>
       <Trademark />
-      <Button
-        onClick={() => {
-          localStorage.clear();
-          redirect("");
-        }}
-      >
-        !
-      </Button>
-      {user ? <Avatar /> : <SignIn err={err} />}
+      {user ? <UserMenu /> : <SignIn err={err} />}
     </StyledHeader>
   );
 }
 
+export function UserMenu({ children }) {
+  const [menuOpen, handleOpen, handleClose] = useToggle();
+  const anchorEl = useRef(null);
+
+  return (
+    <>
+      <Tooltip title="account menu">
+        <IconButton ref={anchorEl} onClick={handleOpen}>
+          <Avatar />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        open={menuOpen}
+        anchorEl={anchorEl.current}
+        onClick={handleClose}
+      >
+        <Items />
+      </Menu>
+    </>
+  );
+}
+
+function Items() {
+  return (
+    <>
+      {[
+        {
+          text: "profile",
+          icon: <PersonOutlined />,
+        },
+        {
+          text: "your-post",
+          icon: <TitleOutlined />,
+        },
+        {
+          text: "stat",
+          icon: <EqualizerOutlined />,
+        },
+        {
+          text: "settings",
+          icon: <SettingsOutlined />,
+        },
+      ].map(({ text, icon }, i) => (
+        <MenuItem
+          key={text}
+          component={NavLink}
+          to={`/${text}`}
+          disabled={i != 0}
+        >
+          <ListItemIcon>{icon}</ListItemIcon>
+          <ListItemText>
+            {titleCase(text.replace("-", " "))}
+          </ListItemText>
+        </MenuItem>
+      ))}
+      <Divider />
+      <Form method="delete">
+        <MenuItem
+          component={Button}
+          type="submit"
+          fullWidth
+          sx={{ "*": { color: "warning.main" } }}
+        >
+          <ListItemIcon>
+            <LogoutOutlined />
+          </ListItemIcon>
+          <ListItemText>Log out</ListItemText>
+        </MenuItem>
+      </Form>
+    </>
+  );
+}
+
 export function SignIn({ err }) {
-  const [dialogOpened, setDialogOpened] = useState(false);
-  const [error, setError] = useState(!!err);
-
-  function handleOpen() {
-    setDialogOpened(true);
-  }
-
-  function handleClose() {
-    setDialogOpened(false);
-  }
+  const [dialogOpen, handleOpen, handleClose] = useToggle();
 
   return (
     <>
@@ -77,7 +147,7 @@ export function SignIn({ err }) {
       </Button>
       <Dialog
         maxWidth="xs"
-        open={dialogOpened}
+        open={dialogOpen}
         onClose={handleClose}
         component={Form}
         method="post"
@@ -110,17 +180,17 @@ export function SignIn({ err }) {
             helperText={err ? "Wrong :(" : ""}
             // onChange={() => setError(false)}
           />
+          <DialogActions>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ background: "#484848" }}
+            >
+              Sign in
+            </Button>
+          </DialogActions>
         </DialogContent>
-        <DialogActions>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ background: "#484848" }}
-          >
-            Sign in
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );

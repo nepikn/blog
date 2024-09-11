@@ -3,7 +3,7 @@
   "scripts": {
     "all": "pnpm -r",
     "dev": "pnpm all dev",
-    "start:server": "pnpm --filter ./src/server start",
+    "start:server": "pnpm -F ./src/server start",
     "test": ""
   },
   "license": "MIT",

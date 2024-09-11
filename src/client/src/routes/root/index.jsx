@@ -12,7 +12,16 @@ const theme = createTheme({
   typography: {
     fontSize: 16,
     button: { textTransform: "none" },
-    trademark: { fontSize: "3.5rem", fontFamily: "spirax" },
+    trademark: {
+      fontSize: "3.5rem",
+      lineHeight: "1.25",
+      fontFamily: "spirax",
+    },
+  },
+  components: {
+    MuiLink: {
+      defaultProps: { underline: "hover" },
+    },
   },
 });
 
