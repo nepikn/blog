@@ -10,7 +10,10 @@ export default class CommentController extends Controller {
     const sessionUserId = req.session.user.id;
 
     this.model
-      .create({ content: req.query["content"], UserId: sessionUserId })
+      .create({
+        content: req.query["content"],
+        UserId: sessionUserId,
+      })
       .then((comment) => {
         res.json(comment.id);
       })
@@ -34,7 +37,7 @@ export default class CommentController extends Controller {
             content,
             user_id: User.id,
             commentator: User.name,
-          }))
+          })),
         );
       })
       .catch(next);

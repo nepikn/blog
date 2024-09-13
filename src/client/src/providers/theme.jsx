@@ -8,7 +8,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 const CustomLink = forwardRef(function CustomLink(
   { href, ...props },
-  ref
+  ref,
 ) {
   return <RouterLink ref={ref} to={href} {...props}></RouterLink>;
 });

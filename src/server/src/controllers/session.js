@@ -14,7 +14,9 @@ export default class SessionController extends Controller {
         where: { name: sessionUser.name },
       });
 
-      if (!bcryptjs.compareSync(req.query["passwd"], user.password)) {
+      if (
+        !bcryptjs.compareSync(req.query["passwd"], user.password)
+      ) {
         sessionUser.err = true;
 
         return res.end();
@@ -39,8 +41,8 @@ export default class SessionController extends Controller {
         err
           ? "err"
           : (await this.model.findOne({ where: { name } }))
-          ? "signIn"
-          : "signUp"
+            ? "signIn"
+            : "signUp",
       );
     } catch (err) {
       next(err);

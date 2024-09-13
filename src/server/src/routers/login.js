@@ -14,5 +14,5 @@ export const login = express.Router().post(
     const token = jwt.sign({ name }, process.env.JWT_SECRET);
 
     res.json(token);
-  }
+  },
 );

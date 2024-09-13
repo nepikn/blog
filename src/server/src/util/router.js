@@ -17,7 +17,8 @@ export default class Router {
         ? handlers
             .flat(Infinity)
             .map((handler) => handler.bind(this.controller))
-        : (req, res, next) => this.controller[method](req, res, next)
+        : (req, res, next) =>
+            this.controller[method](req, res, next),
     );
   }
 

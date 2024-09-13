@@ -18,5 +18,5 @@ export const me = express.Router().get(
         throw err;
       }
     }
-  }
+  },
 );

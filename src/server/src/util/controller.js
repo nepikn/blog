@@ -27,7 +27,7 @@ export default class Controller {
   async verifyUser(req, res) {
     const sessionUserId = req.session.user.id;
     const row = await this.model.findByPk(
-      req.params.id ?? sessionUserId
+      req.params.id ?? sessionUserId,
     );
     const rowUser =
       this.model.name == "User" ? row : await row.getUser();

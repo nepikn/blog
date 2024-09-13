@@ -12,5 +12,5 @@ createRoot(document.getElementById("root")).render(
     <Theme>
       <Router />
     </Theme>
-  </StrictMode>
+  </StrictMode>,
 );

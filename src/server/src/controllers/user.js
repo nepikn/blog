@@ -29,7 +29,9 @@ export default class UserController extends Controller {
     }
 
     this.model
-      .findByPk(sessionUser.id, { attributes: { exclude: ["password"] } })
+      .findByPk(sessionUser.id, {
+        attributes: { exclude: ["password"] },
+      })
       .then((user) => {
         res.json(user);
       })

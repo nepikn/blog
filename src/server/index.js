@@ -38,7 +38,7 @@ app.use(
       .split(",")
       .concat(/^http:\/\/localhost(:\d+)?$/),
     credentials: true,
-  })
+  }),
 );
 
 for (const key of Object.keys(routers)) {
@@ -61,7 +61,7 @@ const server = isProd
         cert: readFileSync(env.CERT),
         key: readFileSync(env.KEY),
       },
-      app
+      app,
     )
   : app;
 

@@ -13,7 +13,7 @@ export const useTitle = () => {
     return () => updateTitle(oldTitle);
 
     function updateTitle(
-      title = document.querySelector("h1").textContent
+      title = document.querySelector("h1").textContent,
     ) {
       const [site, oldTitle] = document.title
         .split(" - ")

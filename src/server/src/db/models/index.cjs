@@ -12,7 +12,7 @@ const sequelize = config.use_env_variable
       config.database,
       config.username,
       config.password,
-      config
+      config,
     );
 
 const basename = path.basename(__filename);
@@ -32,11 +32,11 @@ const db = Object.fromEntries(
     .map((file) => {
       const model = require(path.join(__dirname, file))(
         sequelize,
-        Sequelize.DataTypes
+        Sequelize.DataTypes,
       );
 
       return [model.name, model];
-    })
+    }),
 );
 
 Object.values(db).forEach((model) => {
