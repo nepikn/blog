@@ -33,6 +33,10 @@ const router = createBrowserRouter([
   },
 ]);
 
+if (import.meta.hot) {
+  import.meta.hot.on("vite:beforeUpdate", console.clear);
+}
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
