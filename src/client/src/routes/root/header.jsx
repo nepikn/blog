@@ -71,7 +71,9 @@ export function UserMenu({ children }) {
         anchorEl={anchorEl.current}
         onClick={handleClose}
       >
-        <Items />
+        <Form>
+          <Items />
+        </Form>
       </Menu>
     </>
   );
@@ -111,19 +113,18 @@ function Items() {
         </MenuItem>
       ))}
       <Divider />
-      <Form method="delete">
-        <MenuItem
-          component={Button}
-          type="submit"
-          fullWidth
-          sx={{ "*": { color: "warning.main" } }}
-        >
-          <ListItemIcon>
-            <LogoutOutlined />
-          </ListItemIcon>
-          <ListItemText>Log out</ListItemText>
-        </MenuItem>
-      </Form>
+      <MenuItem
+        component={Button}
+        type="submit"
+        formMethod="delete"
+        fullWidth
+        sx={{ "*": { color: "warning.main" } }}
+      >
+        <ListItemIcon>
+          <LogoutOutlined />
+        </ListItemIcon>
+        <ListItemText>Log out</ListItemText>
+      </MenuItem>
     </>
   );
 }
