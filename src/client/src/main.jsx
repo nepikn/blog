@@ -9,6 +9,8 @@ import { getUser } from "./handler/loaders";
 import Index from "./routes";
 import Error from "./routes/error";
 import Root from "./routes/root";
+import Dashboard from "./routes/dashboard";
+import Profile from "./routes/profile";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +24,14 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Index /> },
           {
-            // path: "doggo/:id",
-            // element: <Root />,
+            path: "/dashboard",
+            element: <Dashboard />,
+            // loader: loader,
+            // action: action,
+          },
+          {
+            path: "/profile",
+            element: <Profile />,
             // loader: loader,
             // action: action,
           },
