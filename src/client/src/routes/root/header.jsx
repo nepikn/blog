@@ -18,6 +18,7 @@ import {
   DialogTitle,
   Divider,
   IconButton,
+  Link,
   ListItemIcon,
   ListItemText,
   Menu,
@@ -28,7 +29,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useRef } from "react";
-import { Form, NavLink } from "react-router-dom";
+import { Form } from "react-router-dom";
 import { titleCase } from "title-case";
 import { useToggle } from "../../handler/hooks";
 
@@ -99,8 +100,8 @@ function Items() {
       ].map(({ text, icon }, i) => (
         <MenuItem
           key={text}
-          component={NavLink}
-          to={`/${text}`}
+          component={Link}
+          href={`/${text}`}
           disabled={i != 0}
         >
           <ListItemIcon>{icon}</ListItemIcon>

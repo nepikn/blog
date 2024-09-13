@@ -6,6 +6,15 @@ import {
 import { Outlet, useLoaderData } from "react-router-dom";
 import { Header } from "./header";
 import { useActionData } from "react-router-dom";
+import { forwardRef } from "react";
+import { Link as RouterLink } from "react-router-dom";
+
+const CustomLink = forwardRef(function CustomLink(
+  { href, ...props },
+  ref
+) {
+  return <RouterLink ref={ref} to={href} {...props}></RouterLink>;
+});
 
 const theme = createTheme({
   palette: { primary: { main: "#2D2D2D" } },
@@ -20,7 +29,7 @@ const theme = createTheme({
   },
   components: {
     MuiLink: {
-      defaultProps: { underline: "hover" },
+      defaultProps: { underline: "hover", component: CustomLink },
     },
   },
 });
