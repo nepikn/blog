@@ -13,19 +13,18 @@ export async function auth({ request, params }) {
   switch (request.method) {
     case "DELETE": {
       localStorage.clear();
-      redirect("");
 
-      return null;
+      return redirect("");
     }
+
     case "POST": {
       const body = Object.fromEntries(await request.formData());
       try {
         const { data: token } = await api.post("/login", body);
 
         localStorage.setItem("user", token);
-        redirect("");
 
-        return null;
+        return redirect("/dashboard");
       } catch (error) {
         return error;
       }
