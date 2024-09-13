@@ -6,20 +6,22 @@ export const useToggle = (init = false) => {
   return [toggle, () => setToggle(true), () => setToggle(false)];
 };
 
-export const useTitle = (title) => {
-  const updateTitle = (
-    title = document.querySelector("h1").textContent
-  ) => {
-    const oldTitle = document.title;
-    const site = oldTitle.match(/[^-]+$/)[0].trim();
-    document.title = `${title} - ${site}`;
-
-    return oldTitle;
-  };
-
+export const useTitle = () => {
   useEffect(() => {
-    const oldTitle = updateTitle(title);
+    const oldTitle = updateTitle();
 
     return () => updateTitle(oldTitle);
+
+    function updateTitle(
+      title = document.querySelector("h1").textContent
+    ) {
+      const [site, oldTitle] = document.title
+        .split(" - ")
+        .reverse();
+
+      document.title = `${title} - ${site}`;
+
+      return oldTitle;
+    }
   }, []);
 };

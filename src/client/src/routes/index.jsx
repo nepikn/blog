@@ -5,7 +5,7 @@ export default function Index({ children }) {
 
   return (
     <>
-      <H1>title</H1>
+      <H1>Unveil Thoughts & Voice Yours</H1>
     </>
   );
 }
