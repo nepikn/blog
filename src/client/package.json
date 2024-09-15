@@ -7,7 +7,8 @@
     "lint:css": "stylelint \"src/**/*.jsx\"",
     "server": "json-server db.json",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
