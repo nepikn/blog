@@ -5,7 +5,6 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import { H1 } from "../components/util";
 import { childRoutes } from "./dashboard/index";
 
 export default function Dashboard({ children }) {
@@ -44,7 +43,7 @@ function NavTabs({ slug }) {
   // };
 
   const tabIndex = childRoutes.findIndex(
-    ({ path }) => path == slug
+    ({ path }) => path == slug,
   );
 
   return (
