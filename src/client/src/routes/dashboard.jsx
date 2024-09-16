@@ -1,7 +1,7 @@
 import { Divider, Link, Stack, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import { H1 } from "../components/util";
-import { titleCase } from "title-case";
+import { capitalCase } from "change-case";
 
 export default function Dashboard({ children }) {
   //
@@ -31,7 +31,7 @@ function NavTabs({ children }) {
     "horoscope",
   ].map((key) => ({
     key,
-    label: titleCase(key.replaceAll("-", " ")),
+    label: capitalCase(key),
     href: `#${key}`,
   }));
   const [value, setValue] = useState(0);

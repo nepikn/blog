@@ -38,6 +38,9 @@ importers:
       axios:
         specifier: ^1.7.7
         version: 1.7.7
+      change-case:
+        specifier: ^5.4.4
+        version: 5.4.4
       json-server:
         specifier: 1.0.0-beta.2
         version: 1.0.0-beta.2
@@ -56,9 +59,6 @@ importers:
       styled-theming:
         specifier: ^2.2.0
         version: 2.2.0
-      title-case:
-        specifier: ^4.3.1
-        version: 4.3.1
     devDependencies:
       '@eslint/js':
         specifier: ^9.9.0
@@ -1049,6 +1049,9 @@ packages:
   chalk@5.3.0:
     resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
+  change-case@5.4.4:
+    resolution: {integrity: sha512-HRQyTk2/YPEkt9TnUPbOpr64Uw3KOicFWPVBb+xiHvd6eBx/qPr9xqfBFDT8P2vWsvvz4jbEkfDe71W3VyNu2w==}
 
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
@@ -2801,9 +2804,6 @@ packages:
     resolution: {integrity: sha512-wFH7+SEAcKfJpfLPkrgMPvvwnEtj8W4IurvEyrKsDleXnKLCDw71w8jltvfLa8Rm4qQxxT4jmDBYbJG/z7qoww==}
     engines: {node: '>=0.12'}
 
-  title-case@4.3.1:
-    resolution: {integrity: sha512-VnPxQ+/j0X2FZ4ceGq1oLruTLjtN5Ul4sam5ypd4mDZLm1eHwkwip1gLxqhON/j4qyTlUlfPKslE/t4NPSlxhg==}
-
   to-fast-properties@2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
@@ -3052,7 +3052,7 @@ snapshots:
       '@babel/traverse': 7.25.6
       '@babel/types': 7.25.6
       convert-source-map: 2.0.0
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -3149,7 +3149,7 @@ snapshots:
       '@babel/parser': 7.25.6
       '@babel/template': 7.25.0
       '@babel/types': 7.25.6
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -3347,7 +3347,7 @@ snapshots:
   '@eslint/config-array@0.18.0':
     dependencies:
       '@eslint/object-schema': 2.1.4
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -3355,7 +3355,7 @@ snapshots:
   '@eslint/eslintrc@3.1.0':
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7
       espree: 10.1.0
       globals: 14.0.0
       ignore: 5.3.2
@@ -3921,6 +3921,8 @@ snapshots:
 
   chalk@5.3.0: {}
 
+  change-case@5.4.4: {}
+
   chokidar@3.6.0:
     dependencies:
       anymatch: 3.1.3
@@ -4089,6 +4091,10 @@ snapshots:
   debug@2.6.9:
     dependencies:
       ms: 2.0.0
+
+  debug@4.3.7:
+    dependencies:
+      ms: 2.1.3
 
   debug@4.3.7(supports-color@5.5.0):
     dependencies:
@@ -4380,7 +4386,7 @@ snapshots:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7
       escape-string-regexp: 4.0.0
       eslint-scope: 8.0.2
       eslint-visitor-keys: 4.0.0
@@ -5817,7 +5823,7 @@ snapshots:
       cosmiconfig: 9.0.0(typescript@5.6.2)
       css-functions-list: 3.2.2
       css-tree: 2.3.1
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7
       fast-glob: 3.3.2
       fastest-levenshtein: 1.0.16
       file-entry-cache: 9.1.0
@@ -5885,8 +5891,6 @@ snapshots:
     dependencies:
       es5-ext: 0.10.64
       next-tick: 1.1.0
-
-  title-case@4.3.1: {}
 
   to-fast-properties@2.0.0: {}
 

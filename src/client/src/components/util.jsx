@@ -1,10 +1,10 @@
+import { capitalCase } from "change-case";
 import { useNavigate, useNavigation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { useTitle } from "../handler/hooks";
-import { titleCase } from "title-case";
 
 export const H1 = ({ children }) => {
-  const title = titleCase(children);
+  const title = capitalCase(children);
 
   useTitle(title);
 

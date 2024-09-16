@@ -28,9 +28,9 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { capitalCase } from "change-case";
 import { useRef } from "react";
 import { Form } from "react-router-dom";
-import { titleCase } from "title-case";
 import { useToggle } from "../../handler/hooks";
 
 const StyledHeader = styled("header")({
@@ -108,7 +108,7 @@ function Items() {
         >
           <ListItemIcon>{icon}</ListItemIcon>
           <ListItemText>
-            {titleCase(text.replace("-", " "))}
+            {capitalCase(text.replace("-", " "))}
           </ListItemText>
         </MenuItem>
       ))}
