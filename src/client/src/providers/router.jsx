@@ -5,10 +5,10 @@ import {
 import { auth } from "../handler/actions";
 import { getUser } from "../handler/loaders";
 import Index from "../routes";
-import Dashboard from "../routes/dashboard";
+import { default as dashboardRoute } from "../routes/dashboard/index";
+import Error from "../routes/error";
 import Profile from "../routes/profile";
 import Root from "../routes/root";
-import Error from "../routes/error";
 
 const router = createBrowserRouter([
   {
@@ -21,12 +21,7 @@ const router = createBrowserRouter([
         errorElement: <Error />,
         children: [
           { index: true, element: <Index /> },
-          {
-            path: "/dashboard",
-            element: <Dashboard />,
-            // loader: loader,
-            // action: action,
-          },
+          dashboardRoute,
           {
             path: "/profile",
             element: <Profile />,
