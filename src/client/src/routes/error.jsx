@@ -1,13 +1,14 @@
+import { styled } from "@mui/material";
 import { useRouteError } from "react-router-dom";
-import styled from "styled-components";
 
-const StyledError = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-`;
+const StyledError = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  minHeight: "100vh",
+});
 
 export default function Error() {
   const error = useRouteError();
@@ -18,7 +19,7 @@ export default function Error() {
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>
-        <i>{error.statusText || error.message}</i>
+        <q>{error.statusText || error.message}</q>
       </p>
     </StyledError>
   );
