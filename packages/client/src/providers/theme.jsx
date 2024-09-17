@@ -14,10 +14,18 @@ const CustomLink = forwardRef(function CustomLink(
 });
 
 const theme = createTheme({
-  palette: { primary: { main: "#2D2D2D" } },
+  palette: {
+    primary: { main: "#2D2D2D" },
+    text: {
+      // secondary: ""
+    },
+  },
   typography: {
-    fontSize: 16,
     button: { textTransform: "none" },
+    fontSize: 16,
+    h1: {
+      fontSize: "3.5rem",
+    },
     trademark: {
       fontSize: "3.5rem",
       lineHeight: "1.25",

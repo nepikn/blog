@@ -21,7 +21,7 @@ importers:
         specifier: ^3.3.3
         version: 3.3.3
 
-  src/client:
+  packages/client:
     dependencies:
       '@emotion/react':
         specifier: ^11.13.3
@@ -103,7 +103,7 @@ importers:
         specifier: ^5.4.1
         version: 5.4.3(@types/node@22.5.4)
 
-  src/server:
+  packages/server:
     dependencies:
       bcryptjs:
         specifier: ^2.4.3
