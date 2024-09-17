@@ -1,4 +1,5 @@
 import { redirect } from "react-router-dom";
+import { childRoutes } from "../routes/dashboard/index";
 import { api } from "./api";
 
 /** @param {{ request: Request}} */
@@ -24,7 +25,7 @@ export async function auth({ request, params }) {
 
         localStorage.setItem("user", token);
 
-        return redirect("/dashboard");
+        return redirect(`/dashboard/${childRoutes[0].path}`);
       } catch (error) {
         return error;
       }
