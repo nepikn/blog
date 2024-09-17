@@ -1,4 +1,11 @@
-import { Divider, Link, Stack, Tab, Tabs } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Link,
+  Stack,
+  Tab,
+  Tabs,
+} from "@mui/material";
 import { capitalCase } from "change-case";
 import {
   Outlet,
@@ -20,14 +27,15 @@ export default function Dashboard({ children }) {
     <>
       <Stack
         direction={"row"}
-        divider={<Divider orientation="vertical" />}
-        sx={{ height: "57.25rem" }}
+        divider={<Divider flexItem orientation="vertical" />}
       >
-        <Stack>
+        <Stack divider={<Divider />} sx={{ width: 9 / 12 }}>
           <H1 hidden>{childRoutes[tabIndex]?.path}</H1>
           <NavTabs value={tabIndex == -1 ? false : tabIndex} />
           <Outlet />
         </Stack>
+
+        <Box />
       </Stack>
     </>
   );
@@ -42,10 +50,6 @@ function NavTabs({ value }) {
         selectionFollowsFocus
         value={value}
         onChange={(_, value) => navigate(childRoutes[value].path)}
-        sx={{
-          borderBottom: 1,
-          borderColor: "text.secondary",
-        }}
       >
         {childRoutes.map(({ path }, i) => (
           <Tab
