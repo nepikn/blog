@@ -1,18 +1,18 @@
+import { json } from "react-router-dom";
 import { api } from "./api";
 
+/** @param {{request: Request}}  */
 export async function loader({ request }) {
-  // todo
+  //
 
   return {};
 }
 
 export async function getUser({ request }) {
   const token = localStorage.getItem("user");
-  if (!token) return null;
+  if (!token) return json({ data: null });
 
-  const { data } = await api.get("/me", {
+  return api.get("/me", {
     headers: { Authorization: `Bearer ${token}` },
   });
-
-  return data;
 }

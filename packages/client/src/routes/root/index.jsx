@@ -6,7 +6,7 @@ import {
 import { Header } from "./header";
 
 export default function Root() {
-  const user = useLoaderData();
+  const { data: user } = useLoaderData();
   const err = useActionData();
 
   return (
