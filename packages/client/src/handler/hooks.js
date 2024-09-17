@@ -1,3 +1,4 @@
+import { capitalCase } from "change-case";
 import { useEffect, useState } from "react";
 
 export const useToggle = (init = false) => {
@@ -6,22 +7,25 @@ export const useToggle = (init = false) => {
   return [toggle, () => setToggle(true), () => setToggle(false)];
 };
 
-export const useTitle = () => {
+export const useTitle = (title) => {
   useEffect(() => {
     const oldTitle = updateTitle();
 
     return () => updateTitle(oldTitle);
 
     function updateTitle(
-      title = document.querySelector("h1").textContent,
+      newTitle = title ??
+        document.querySelector("h1")?.textContent,
     ) {
       const [site, oldTitle] = document.title
         .split(" - ")
         .reverse();
 
-      document.title = `${title} - ${site}`;
+      document.title = newTitle
+        ? `${capitalCase(newTitle)} - ${site}`
+        : site;
 
       return oldTitle;
     }
-  }, []);
+  }, [title]);
 };

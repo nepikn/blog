@@ -5,11 +5,16 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
+import { H1 } from "../components/util";
 import { childRoutes } from "./dashboard/index";
 
 export default function Dashboard({ children }) {
   const location = useLocation();
+
   const slug = location.pathname.split("/").at(-1);
+  const tabIndex = childRoutes.findIndex(
+    ({ path }) => path == slug,
+  );
 
   return (
     <>
@@ -19,43 +24,28 @@ export default function Dashboard({ children }) {
         sx={{ height: "57.25rem" }}
       >
         <Stack>
-          <NavTabs slug={slug} />
+          <H1 hidden>{childRoutes[tabIndex]?.path}</H1>
+          <NavTabs value={tabIndex == -1 ? false : tabIndex} />
+          <Outlet />
         </Stack>
       </Stack>
     </>
   );
 }
 
-function NavTabs({ slug }) {
+function NavTabs({ value }) {
   const navigate = useNavigate();
-
-  // const tabs = dashboardRoutes.map(({ path }) => ({
-  //   key: path,
-  //   href: path,
-  //   label: capitalCase(path),
-  // }));
-
-  // const [value, setValue] = useState(
-  //   tabs.findIndex(({ key }) => key == hash)
-  // );
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
-
-  const tabIndex = childRoutes.findIndex(
-    ({ path }) => path == slug,
-  );
 
   return (
     <>
       <Tabs
         selectionFollowsFocus
-        value={tabIndex == -1 ? false : tabIndex}
+        value={value}
         onChange={(_, value) => navigate(childRoutes[value].path)}
-        sx={(theme) => ({
+        sx={{
           borderBottom: 1,
           borderColor: "text.secondary",
-        })}
+        }}
       >
         {childRoutes.map(({ path }, i) => (
           <Tab
@@ -67,7 +57,6 @@ function NavTabs({ slug }) {
           />
         ))}
       </Tabs>
-      <Outlet />
     </>
   );
 }

@@ -3,12 +3,10 @@ import { useNavigate, useNavigation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { useTitle } from "../handler/hooks";
 
-export const H1 = ({ children }) => {
-  const title = capitalCase(children);
+export const H1 = ({ children, hidden }) => {
+  useTitle(children);
 
-  useTitle(title);
-
-  return <h1>{title}</h1>;
+  return <h1 hidden={hidden}>{children}</h1>;
 };
 
 const StyledLoading = styled.div`
