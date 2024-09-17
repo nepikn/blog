@@ -26,6 +26,9 @@ const theme = createTheme({
     h1: {
       fontSize: "3.5rem",
     },
+    h2: {
+      fontSize: "3rem",
+    },
     trademark: {
       fontSize: "3.5rem",
       lineHeight: "1.25",

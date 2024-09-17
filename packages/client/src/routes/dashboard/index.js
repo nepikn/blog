@@ -1,4 +1,5 @@
 import { kebabCase } from "change-case";
+import { getAllPosts } from "../../handler/loaders";
 import Dashboard from "../dashboard";
 import ArtificialIntelligence from "./artificial-intelligence";
 import Following from "./following";
@@ -15,8 +16,9 @@ export const childRoutes = Object.entries({
   Horoscope,
 }).map(([key, Component]) => ({
   // key: pascalCase(key),
-  path: kebabCase(key),
   Component,
+  path: kebabCase(key),
+  loader: getAllPosts,
 }));
 
 export default {
