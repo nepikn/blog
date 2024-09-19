@@ -1,26 +1,43 @@
-import { styled } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useRouteError } from "react-router-dom";
 
-const StyledError = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "100%",
-  minHeight: "100vh",
-});
-
-export default function Error() {
+export default function Error({ root }) {
   const error = useRouteError();
   console.error(error);
 
   return (
-    <StyledError>
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
-        <q>{error.statusText || error.message}</q>
-      </p>
-    </StyledError>
+    <Card
+      component={Stack}
+      sx={{
+        alignItems: "center",
+        justifyContent: "center",
+        flexGrow: 1,
+        minHeight: root ? "100vh" : "auto",
+      }}
+    >
+      <CardHeader title="Oops!" component={"h1"} />
+      <CardContent>
+        <Typography
+          variant="body1"
+          color="textSecondary"
+          component={"q"}
+        >
+          {error.statusText || error.message}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button variant="contained" href="/">
+          Back to Home
+        </Button>
+      </CardActions>
+    </Card>
   );
 }

@@ -13,7 +13,7 @@ import Root from "../routes/root";
 
 const router = createBrowserRouter([
   {
-    errorElement: <Error />,
+    errorElement: <Error root />,
     element: <Root />,
     loader: getUser,
     action: auth,

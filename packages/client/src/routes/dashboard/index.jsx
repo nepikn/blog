@@ -28,6 +28,7 @@ export default function Dashboard({ children }) {
       <Stack
         direction={"row"}
         divider={<Divider flexItem orientation="vertical" />}
+        sx={{ flexGrow: 1 }}
       >
         <Stack divider={<Divider />} sx={{ width: 9 / 12 }}>
           <H1 hidden>{childRoutes[tabIndex]?.path}</H1>
