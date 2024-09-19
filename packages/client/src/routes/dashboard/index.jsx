@@ -48,6 +48,7 @@ function NavTabs({ value }) {
     <>
       <Tabs
         selectionFollowsFocus
+        variant="scrollable"
         value={value}
         onChange={(_, value) => navigate(childRoutes[value].path)}
       >
