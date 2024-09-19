@@ -24,21 +24,18 @@ export default function Dashboard({ children }) {
   );
 
   return (
-    <>
-      <Stack
-        direction={"row"}
-        divider={<Divider flexItem orientation="vertical" />}
-        sx={{ flexGrow: 1 }}
-      >
-        <Stack divider={<Divider />} sx={{ width: 9 / 12 }}>
-          <H1 hidden>{childRoutes[tabIndex]?.path}</H1>
-          <NavTabs value={tabIndex == -1 ? false : tabIndex} />
-          <Outlet />
-        </Stack>
-
-        <Box />
+    <Stack
+      direction={"row"}
+      divider={<Divider flexItem orientation="vertical" />}
+      sx={{ flexGrow: 1 }}
+    >
+      <Stack sx={{ width: 9 / 12 }}>
+        <H1 hidden>{childRoutes[tabIndex]?.path}</H1>
+        <NavTabs value={tabIndex == -1 ? false : tabIndex} />
+        <Outlet />
       </Stack>
-    </>
+      <Box />
+    </Stack>
   );
 }
 
@@ -46,23 +43,29 @@ function NavTabs({ value }) {
   const navigate = useNavigate();
 
   return (
-    <>
-      <Tabs
-        selectionFollowsFocus
-        variant="scrollable"
-        value={value}
-        onChange={(_, value) => navigate(childRoutes[value].path)}
-      >
-        {childRoutes.map(({ path }, i) => (
-          <Tab
-            key={path}
-            label={capitalCase(path)}
-            component={Link}
-            href={path}
-            disabled={i > 1}
-          />
-        ))}
-      </Tabs>
-    </>
+    <Tabs
+      selectionFollowsFocus
+      variant="scrollable"
+      value={value}
+      onChange={(_, value) => navigate(childRoutes[value].path)}
+      sx={{
+        position: "sticky",
+        top: 0,
+        zIndex: "appBar",
+        bgcolor: "Background",
+        borderBottom: 1,
+        borderColor: "divider",
+      }}
+    >
+      {childRoutes.map(({ path }, i) => (
+        <Tab
+          key={path}
+          label={capitalCase(path)}
+          component={Link}
+          href={path}
+          disabled={i > 1}
+        />
+      ))}
+    </Tabs>
   );
 }
