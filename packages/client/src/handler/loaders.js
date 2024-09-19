@@ -2,10 +2,14 @@ import { json } from "react-router-dom";
 import { api } from "./api";
 
 /** @param {{request: Request}}  */
-export async function loader({ request }) {
+export async function loader({ request, params }) {
   //
 
   return {};
+}
+
+export async function getPostsByCategory({ request, params }) {
+  return api.get(`/post/${params.category}`);
 }
 
 export async function getAllPosts({ request }) {
