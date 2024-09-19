@@ -1,5 +1,5 @@
 import { redirect } from "react-router-dom";
-import { childRoutes } from "../routes/dashboard/index";
+import { childRoutes } from "../routes/dashboard/children/index";
 import { api } from "./api";
 
 /** @param {{ request: Request}} */
