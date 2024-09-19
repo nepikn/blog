@@ -5,10 +5,9 @@ import {
 import { auth } from "../handler/actions";
 import { getPostsByCategory, getUser } from "../handler/loaders";
 import Index from "../routes";
-import Category from "../routes/dashboard/children/category";
 import Dashboard from "../routes/dashboard";
+import Category from "../routes/dashboard/children/category";
 import Error from "../routes/error";
-import Profile from "../routes/profile";
 import Root from "../routes/root";
 
 const router = createBrowserRouter([
@@ -37,12 +36,6 @@ const router = createBrowserRouter([
                 ],
               },
             ],
-          },
-          {
-            path: "profile",
-            element: <Profile />,
-            // loader: loader,
-            // action: action,
           },
         ],
       },

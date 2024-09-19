@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Divider, Stack } from "@mui/material";
 import {
   Outlet,
   useActionData,
@@ -11,7 +11,7 @@ export default function Root() {
   const err = useActionData();
 
   return (
-    <Stack sx={{ minHeight: "100vh" }}>
+    <Stack divider={<Divider />} sx={{ minHeight: "100vh" }}>
       <Header user={user} err={err} />
       <Stack component={"main"} sx={{ flexGrow: 1 }}>
         <Outlet />

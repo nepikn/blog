@@ -39,7 +39,6 @@ const StyledHeader = styled("header")({
   justifyContent: "space-between",
   paddingInline: "3rem",
   background: "#fcfcfc",
-  borderBottom: "1px solid #DBDBDB",
 });
 
 const Trademark = () => (
@@ -59,6 +58,25 @@ export function UserMenu({ children }) {
   const [menuOpen, handleOpen, handleClose] = useToggle();
   const anchorEl = useRef(null);
 
+  const items = [
+    {
+      text: "profile",
+      icon: <PersonOutlined />,
+    },
+    {
+      text: "your-post",
+      icon: <TitleOutlined />,
+    },
+    {
+      text: "stat",
+      icon: <EqualizerOutlined />,
+    },
+    {
+      text: "settings",
+      icon: <SettingsOutlined />,
+    },
+  ].map((i) => ({ disabled: true, ...i }));
+
   return (
     <>
       <Tooltip title="account menu">
@@ -72,39 +90,22 @@ export function UserMenu({ children }) {
         onClick={handleClose}
       >
         <Form>
-          <Items />
+          <Items items={items} />
         </Form>
       </Menu>
     </>
   );
 }
 
-function Items() {
+function Items({ items }) {
   return (
     <>
-      {[
-        {
-          text: "profile",
-          icon: <PersonOutlined />,
-        },
-        {
-          text: "your-post",
-          icon: <TitleOutlined />,
-        },
-        {
-          text: "stat",
-          icon: <EqualizerOutlined />,
-        },
-        {
-          text: "settings",
-          icon: <SettingsOutlined />,
-        },
-      ].map(({ text, icon }, i) => (
+      {items.map(({ text, icon, ...props }, i) => (
         <MenuItem
           key={text}
           component={Link}
           href={`/${text}`}
-          disabled={i != 0}
+          {...props}
         >
           <ListItemIcon>{icon}</ListItemIcon>
           <ListItemText>
