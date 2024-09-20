@@ -3,7 +3,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { auth } from "../handler/actions";
-import { getPostsByCategory, getUser } from "../handler/loaders";
+import { categoryLoader, getUser } from "../handler/loaders";
 import Index from "../routes";
 import Dashboard from "../routes/dashboard";
 import Category from "../routes/dashboard/children/category";
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
                   {
                     path: ":category",
                     element: <Category />,
-                    loader: getPostsByCategory,
+                    loader: categoryLoader,
                   },
                 ],
               },
