@@ -69,11 +69,22 @@ export async function getAllPosts({ request }) {
   return api.get("/post");
 }
 
+export async function getToken({ request }) {
+  let { token } = await localforage.getItem("user");
+  if (!token) {
+    throw new Error("401");
+  }
+
+  return token;
+}
+
 export async function getUser({ request }) {
-  const token = localStorage.getItem("user");
-  if (!token) return json({ data: null });
+  let user = await localforage.getItem("user");
+  if (!user) {
+    await localforage.setItem("user", (user = {}));
+  }
 
   return api.get("/me", {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${user.token}` },
   });
 }
