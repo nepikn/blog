@@ -24,7 +24,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useLoaderData } from "react-router-dom";
+import { useFetcher, useLoaderData } from "react-router-dom";
 
 export default function Category({ children }) {
   const [posts, actionsByPost] = useLoaderData().map(
@@ -42,11 +42,12 @@ export default function Category({ children }) {
   );
 }
 
-function Post({ post, actions }) {
-  const { author, title, abstract } = post;
+function Post({ post: { author, title, abstract }, actions }) {
+  const fetcher = useFetcher();
 
   return (
-    <Card component={"article"}>
+    <Card component={fetcher.Form}>
+      <input hidden name="title" defaultValue={title} />
       <CardHeader
         avatar={<Avatar />}
         title={author}
@@ -87,37 +88,41 @@ function Post({ post, actions }) {
 }
 
 function Actions({ actions }) {
+  const defaultProps = {
+    type: "submit",
+    formMethod: "put",
+  };
+
   const btns = [
     {
       value: "SentimentSatisfied",
       icons: [SentimentSatisfiedOutlined, EmojiEmotions],
-      type: "submit",
     },
     {
       value: "ThumbUp",
       icons: [ThumbUpOutlined, ThumbUp],
-      type: "submit",
     },
     {
       value: "ChatBubble",
       icons: [ChatBubbleOutline, ChatBubble],
+      type: "button",
       disabled: true,
     },
     {
       value: "Bookmark",
       icons: [BookmarkBorder, Bookmark],
-      type: "submit",
       isIconButton: true,
       sx: { ml: "auto" },
     },
-  ].map(({ value, icons, ...props }) => {
-    const reactedUsers = actions[value];
+  ].map(({ icons, ...props }) => {
+    /** @type {Set} */
+    const reactedUsers = actions[props.value];
 
     return {
+      count: reactedUsers.size,
+      Icon: icons[!reactedUsers.has("owo") ? 0 : 1],
+      ...defaultProps,
       ...props,
-      value,
-      count: reactedUsers.length,
-      Icon: icons[reactedUsers.includes("owo") ? 1 : 0],
     };
   });
 

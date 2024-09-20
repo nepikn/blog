@@ -2,7 +2,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { auth } from "../handler/actions";
+import { auth, categoryAction } from "../handler/actions";
 import {
   categoryLoader,
   getToken,
@@ -37,6 +37,7 @@ const router = createBrowserRouter([
                     path: ":category",
                     element: <Category />,
                     loader: categoryLoader,
+                    action: categoryAction,
                   },
                 ],
               },

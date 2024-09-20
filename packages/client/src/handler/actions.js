@@ -11,12 +11,38 @@ export async function action({ request, params }) {
 }
 
 /** @param {{ request: Request}} */
+export async function categoryAction({ request, params }) {
+  const { title, intent } = await getBody(request);
+
+  switch (intent) {
+    case "SentimentSatisfied":
+    case "ThumbUp":
+    case "Bookmark": {
+      const data = await localforage.getItem("actionsByPost");
+      /** @type {Set} */
+      const reactedUsers = data[title][intent];
+
+      if (reactedUsers.has("owo")) {
+        reactedUsers.delete("owo");
+      } else {
+        reactedUsers.add("owo");
+      }
+
+      await localforage.setItem("actionsByPost", data);
+
+      break;
+    }
+  }
+
+  return null;
+}
+
 export async function auth({ request, params }) {
   const key = "user";
 
   switch (request.method) {
     case "POST": {
-      const body = Object.fromEntries(await request.formData());
+      const body = await getBody(request);
       try {
         const { data: token } = await api.post("/login", body);
 
@@ -37,4 +63,8 @@ export async function auth({ request, params }) {
     default:
       break;
   }
+}
+
+async function getBody(request) {
+  return Object.fromEntries(await request.formData());
 }

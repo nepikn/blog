@@ -51,7 +51,9 @@ export async function getActionsByPost({ request, params }) {
 
     for (const counts of Object.values(data)) {
       for (const [reaction, count] of Object.entries(counts)) {
-        counts[reaction] = [...Array(count)].map((_, i) => i);
+        counts[reaction] = new Set(
+          [...Array(count)].map((_, i) => i),
+        );
       }
     }
 
