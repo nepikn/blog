@@ -11,14 +11,14 @@ export async function action({ request, params }) {
 }
 
 /** @param {{ request: Request}} */
-export async function categoryAction({ request, params }) {
+export async function reaction({ request, params }) {
   const { title, intent } = await getBody(request);
 
   switch (intent) {
     case "SentimentSatisfied":
     case "ThumbUp":
     case "Bookmark": {
-      const data = await localforage.getItem("actionsByPost");
+      const data = await localforage.getItem("reactionsByPost");
       /** @type {Set} */
       const reactedUsers = data[title][intent];
 
@@ -28,7 +28,7 @@ export async function categoryAction({ request, params }) {
         reactedUsers.add("owo");
       }
 
-      await localforage.setItem("actionsByPost", data);
+      await localforage.setItem("reactionsByPost", data);
 
       break;
     }
@@ -38,15 +38,13 @@ export async function categoryAction({ request, params }) {
 }
 
 export async function auth({ request, params }) {
-  const key = "user";
-
   switch (request.method) {
     case "POST": {
       const body = await getBody(request);
       try {
-        const { data: token } = await api.post("/login", body);
+        const { data: token } = await api.post("/auth", body);
 
-        await localforage.setItem(key, { token });
+        await localforage.setItem(auth.name, token);
 
         return redirect(`/dashboard/${childRoutes[0].path}`);
       } catch (error) {

@@ -2,12 +2,8 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { auth, categoryAction } from "../handler/actions";
-import {
-  categoryLoader,
-  getToken,
-  getUser,
-} from "../handler/loaders";
+import { auth, reaction } from "../handler/actions";
+import { categoryLoader, getUser } from "../handler/loaders";
 import Index from "../routes";
 import Dashboard from "../routes/dashboard";
 import Category from "../routes/dashboard/children/category";
@@ -41,7 +37,7 @@ const router = createBrowserRouter([
                     path: ":category",
                     element: <Category />,
                     loader: categoryLoader,
-                    action: categoryAction,
+                    action: reaction,
                   },
                 ],
               },

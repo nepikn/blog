@@ -27,7 +27,7 @@ import {
 import { useFetcher, useLoaderData } from "react-router-dom";
 
 export default function Category({ children }) {
-  const [posts, actionsByPost] = useLoaderData().map(
+  const [posts, reactionsByPost] = useLoaderData().map(
     (res) => res.data,
   );
 
@@ -35,14 +35,17 @@ export default function Category({ children }) {
     <List>
       {posts.map((post, i) => (
         <ListItem key={post.title}>
-          <Post post={post} actions={actionsByPost[post.title]} />
+          <Post
+            post={post}
+            reactions={reactionsByPost[post.title]}
+          />
         </ListItem>
       ))}
     </List>
   );
 }
 
-function Post({ post: { author, title, abstract }, actions }) {
+function Post({ post: { author, title, abstract }, reactions }) {
   const fetcher = useFetcher();
 
   return (
@@ -70,7 +73,7 @@ function Post({ post: { author, title, abstract }, actions }) {
             {abstract}
           </CardContent>
           <CardActions disableSpacing>
-            <Actions actions={actions} />
+            <Reactions reactions={reactions} />
           </CardActions>
         </Stack>
         <CardMedia sx={{ width: 1 / 3, flexShrink: 0 }}>
@@ -87,7 +90,7 @@ function Post({ post: { author, title, abstract }, actions }) {
   );
 }
 
-function Actions({ actions }) {
+function Reactions({ reactions }) {
   const defaultProps = {
     type: "submit",
     formMethod: "put",
@@ -116,7 +119,7 @@ function Actions({ actions }) {
     },
   ].map(({ icons, ...props }) => {
     /** @type {Set} */
-    const reactedUsers = actions[props.value];
+    const reactedUsers = reactions[props.value];
 
     return {
       count: reactedUsers.size,

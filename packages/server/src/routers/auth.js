@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 
-export const login = express.Router().post(
+export const auth = express.Router().post(
   "",
   /** @type {express.RequestHandler} */
   (req, res, next) => {

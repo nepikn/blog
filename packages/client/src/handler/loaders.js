@@ -10,7 +10,7 @@ export async function loader({ request, params }) {
 
 export const categoryLoader = async (...props) => {
   const data = await Promise.all(
-    [getPostsByCategory, getActionsByPost].map((cb) =>
+    [getPostsByCategory, getReactionsByPost].map((cb) =>
       cb(...props),
     ),
   );
@@ -18,9 +18,9 @@ export const categoryLoader = async (...props) => {
   return data;
 };
 
-export async function getActionsByPost({ request, params }) {
-  // await localforage.removeItem("actionsByPost");
-  let data = await localforage.getItem("actionsByPost");
+export async function getReactionsByPost({ request, params }) {
+  // await localforage.removeItem("reactionsByPost");
+  let data = await localforage.getItem("reactionsByPost");
   if (!data) {
     data = {
       "Exploring the Future of Quantum Computing": {
@@ -57,7 +57,7 @@ export async function getActionsByPost({ request, params }) {
       }
     }
 
-    await localforage.setItem("actionsByPost", data);
+    await localforage.setItem("reactionsByPost", data);
   }
 
   return { data };
@@ -71,22 +71,14 @@ export async function getAllPosts({ request }) {
   return api.get("/post");
 }
 
-export async function getToken({ request }) {
-  let { token } = await localforage.getItem("user");
-  if (!token) {
-    throw new Error("401");
-  }
-
-  return token;
-}
-
 export async function getUser({ request }) {
-  let user = await localforage.getItem("user");
-  if (!user) {
-    await localforage.setItem("user", (user = {}));
+  // await localforage.removeItem("auth");
+  const token = await localforage.getItem("auth");
+  if (!token) {
+    return { data: null };
   }
 
   return api.get("/me", {
-    headers: { Authorization: `Bearer ${user.token}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
 }
