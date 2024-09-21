@@ -4,6 +4,7 @@ import {
   useActionData,
   useLoaderData,
 } from "react-router-dom";
+import Auth from "../../contexts/auth";
 import { Header } from "./header";
 
 export default function Root() {
@@ -11,11 +12,13 @@ export default function Root() {
   const err = useActionData();
 
   return (
-    <Stack divider={<Divider />} sx={{ minHeight: "100vh" }}>
-      <Header user={user} err={err} />
-      <Stack component={"main"} sx={{ flexGrow: 1 }}>
-        <Outlet />
+    <Auth.Provider value={user}>
+      <Stack divider={<Divider />} sx={{ minHeight: "100vh" }}>
+        <Header err={err} />
+        <Stack component={"main"} sx={{ flexGrow: 1 }}>
+          <Outlet />
+        </Stack>
       </Stack>
-    </Stack>
+    </Auth.Provider>
   );
 }

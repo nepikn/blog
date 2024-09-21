@@ -29,8 +29,9 @@ import {
   Typography,
 } from "@mui/material";
 import { capitalCase } from "change-case";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { Form } from "react-router-dom";
+import Auth from "../../contexts/auth";
 import { useToggle } from "../../handler/hooks";
 
 const StyledHeader = styled("header")({
@@ -45,7 +46,9 @@ const Trademark = () => (
   <Typography variant="trademark">Mindly</Typography>
 );
 
-export function Header({ user, err }) {
+export function Header({ err }) {
+  const user = useContext(Auth);
+
   return (
     <StyledHeader sx={{ paddingBlock: user ? "1rem" : "2rem" }}>
       <Trademark />
@@ -79,7 +82,7 @@ export function UserMenu({ children }) {
 
   return (
     <>
-      <Tooltip title="account menu">
+      <Tooltip title="Account Menu">
         <IconButton ref={anchorEl} onClick={handleOpen}>
           <Avatar />
         </IconButton>

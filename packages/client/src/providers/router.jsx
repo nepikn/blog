@@ -12,6 +12,7 @@ import Index from "../routes";
 import Dashboard from "../routes/dashboard";
 import Category from "../routes/dashboard/children/category";
 import Error from "../routes/error";
+import Private from "../routes/private";
 import Root from "../routes/root";
 
 const router = createBrowserRouter([
@@ -27,8 +28,11 @@ const router = createBrowserRouter([
           { index: true, element: <Index /> },
           {
             path: "dashboard",
-            element: <Dashboard />,
-            loader: getToken,
+            element: (
+              <Private>
+                <Dashboard />
+              </Private>
+            ),
             children: [
               {
                 errorElement: <Error />,
