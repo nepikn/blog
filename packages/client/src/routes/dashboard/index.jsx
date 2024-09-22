@@ -1,11 +1,15 @@
 import {
-  Box,
+  Card,
+  CardActions,
+  CardHeader,
+  Chip,
   Divider,
   Link,
   Stack,
   Tab,
   Tabs,
 } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { capitalCase } from "change-case";
 import {
   Outlet,
@@ -13,6 +17,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { H1 } from "../../components/util";
+import { useToggle } from "../../handler/hooks";
 import { childRoutes } from "./children/index";
 
 export default function Dashboard({ children }) {
@@ -34,7 +39,20 @@ export default function Dashboard({ children }) {
         <NavTabs value={tabIndex == -1 ? false : tabIndex} />
         <Outlet />
       </Stack>
-      <Box />
+      <Stack>
+        <Chips
+          title={"Recommended Title"}
+          labels={[
+            "Artificial Intelligence",
+            "Work Life",
+            "New Fashion",
+            "Traveling",
+            "Trending",
+            "Chatgpt",
+            "Vlog",
+          ]}
+        />
+      </Stack>
     </Stack>
   );
 }
@@ -67,5 +85,46 @@ function NavTabs({ value }) {
         />
       ))}
     </Tabs>
+  );
+}
+
+function Chips({ title, labels }) {
+  const chips = labels.map((label) => ({
+    label,
+  }));
+
+  return (
+    <Card variant="outlined" sx={{ border: 0 }}>
+      <CardHeader
+        titleTypographyProps={{ variant: "h3" }}
+        title={title}
+      />
+      <CardActions
+        disableSpacing
+        direction={"row"}
+        sx={{ flexWrap: "wrap", gap: 1 }}
+      >
+        {chips.map(function SelectableChip({ label }, i) {
+          const [selected, select, deselect] = useToggle();
+
+          return (
+            <Chip
+              key={label}
+              label={label}
+              onClick={selected ? deselect : select}
+              onDelete={selected ? deselect : undefined}
+              sx={{
+                color: "text.secondary",
+                bgcolor: grey[100],
+                fontSize: "1rem",
+                fontWeight: "light",
+                height: "2em",
+                borderRadius: 37,
+              }}
+            ></Chip>
+          );
+        })}
+      </CardActions>
+    </Card>
   );
 }
