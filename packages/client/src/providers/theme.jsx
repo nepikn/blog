@@ -1,3 +1,8 @@
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import "@fontsource/spirax";
 import {
   createTheme,
   CssBaseline,
@@ -27,7 +32,10 @@ const theme = createTheme({
       fontSize: "3.5rem",
     },
     h2: {
-      fontSize: "3rem",
+      fontSize: "2.5rem",
+    },
+    h3: {
+      fontSize: "1.5rem",
     },
     trademark: {
       fontSize: "3.5rem",

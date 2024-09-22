@@ -1,5 +1,3 @@
-import "@fontsource/roboto";
-import "@fontsource/spirax";
 import {
   ArrowForward,
   EqualizerOutlined,

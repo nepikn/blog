@@ -23,7 +23,10 @@ export default function Error({ root }) {
         minHeight: root ? "100vh" : "auto",
       }}
     >
-      <CardHeader title="Oops!" component={"h1"} />
+      <CardHeader
+        title="Oops!"
+        titleTypographyProps={{ variant: "h1" }}
+      />
       <CardContent>
         <Typography
           variant="body1"

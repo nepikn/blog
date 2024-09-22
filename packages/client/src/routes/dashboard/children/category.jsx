@@ -60,9 +60,15 @@ function Post({ post: { author, title, abstract }, reactions }) {
           </IconButton>
         }
       />
-      <Stack direction={"row"} sx={{ alignItems: "center" }}>
+      <Stack
+        direction={"row"} /* sx={{ alignItems: "center" }} */
+      >
         <Stack>
-          <CardContent component={Typography} variant="h2">
+          <CardContent
+            component={Typography}
+            variant="h2"
+            sx={{ fontWeight: "bold" }}
+          >
             {title}
           </CardContent>
           <CardContent
