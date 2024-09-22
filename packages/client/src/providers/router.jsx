@@ -2,8 +2,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { auth, reaction } from "../handler/actions";
-import { categoryLoader, getUser } from "../handler/loaders";
+import api from "../api";
 import Index from "../routes";
 import Dashboard from "../routes/dashboard";
 import Category from "../routes/dashboard/children/category";
@@ -15,8 +14,8 @@ const router = createBrowserRouter([
   {
     errorElement: <Error root />,
     element: <Root />,
-    loader: getUser,
-    action: auth,
+    loader: api.auth,
+    action: api.auth,
     children: [
       {
         errorElement: <Error />,
@@ -36,8 +35,8 @@ const router = createBrowserRouter([
                   {
                     path: ":category",
                     element: <Category />,
-                    loader: categoryLoader,
-                    action: reaction,
+                    loader: api.post,
+                    action: api.post,
                   },
                 ],
               },

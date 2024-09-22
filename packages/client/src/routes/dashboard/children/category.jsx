@@ -27,9 +27,10 @@ import {
 import { useFetcher, useLoaderData } from "react-router-dom";
 
 export default function Category({ children }) {
-  const [posts, reactionsByPost] = useLoaderData().map(
-    (res) => res.data,
-  );
+  // const [posts, reactionsByPost] = useLoaderData().map(
+  //   (res) => res.data,
+  // );
+  const { data: posts } = useLoaderData();
 
   return (
     <List>
@@ -37,7 +38,7 @@ export default function Category({ children }) {
         <ListItem key={post.title}>
           <Post
             post={post}
-            reactions={reactionsByPost[post.title]}
+            // reactions={reactionsByPost[post.title]}
           />
         </ListItem>
       ))}
@@ -45,7 +46,9 @@ export default function Category({ children }) {
   );
 }
 
-function Post({ post: { author, title, abstract }, reactions }) {
+function Post({
+  post: { author, title, abstract, reactions } /* , reactions  */,
+}) {
   const fetcher = useFetcher();
 
   return (

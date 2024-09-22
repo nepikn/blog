@@ -16,8 +16,8 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import { H1 } from "../../components/util";
-import { useToggle } from "../../handler/hooks";
+import { H1 } from "../../components";
+import { useToggle } from "../../hooks";
 import { childRoutes } from "./children/index";
 
 export default function Dashboard({ children }) {
@@ -36,7 +36,10 @@ export default function Dashboard({ children }) {
     >
       <Stack sx={{ width: 9 / 12 }}>
         <H1 hidden>{childRoutes[tabIndex]?.path}</H1>
-        <NavTabs value={tabIndex == -1 ? false : tabIndex} />
+        <NavTabs
+          value={tabIndex == -1 ? false : tabIndex}
+          routes={childRoutes}
+        />
         <Outlet />
       </Stack>
       <Stack>
@@ -57,7 +60,7 @@ export default function Dashboard({ children }) {
   );
 }
 
-function NavTabs({ value }) {
+function NavTabs({ value, routes }) {
   const navigate = useNavigate();
 
   return (
@@ -65,7 +68,7 @@ function NavTabs({ value }) {
       selectionFollowsFocus
       variant="scrollable"
       value={value}
-      onChange={(_, value) => navigate(childRoutes[value].path)}
+      onChange={(_, value) => navigate(routes[value].path)}
       sx={{
         position: "sticky",
         top: 0,
@@ -75,7 +78,7 @@ function NavTabs({ value }) {
         borderColor: "divider",
       }}
     >
-      {childRoutes.map(({ path }, i) => (
+      {routes.map(({ path }, i) => (
         <Tab
           key={path}
           label={capitalCase(path)}

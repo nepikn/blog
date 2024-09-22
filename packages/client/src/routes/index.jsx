@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { H1 } from "../components/util";
+import { H1 } from "../components";
 
 export default function Index({ children }) {
   //

@@ -30,7 +30,7 @@ import { capitalCase } from "change-case";
 import { useContext, useRef } from "react";
 import { Form } from "react-router-dom";
 import Auth from "../../contexts/auth";
-import { useToggle } from "../../handler/hooks";
+import { useToggle } from "../../hooks";
 
 const StyledHeader = styled("header")({
   display: "flex",

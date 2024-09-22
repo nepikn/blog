@@ -1,24 +1,50 @@
+import axios from "axios";
 import localforage from "localforage";
-import { api } from "./api";
+import { defaultConfig, getBody } from ".";
 
-/** @param {{request: Request}}  */
-export async function loader({ request, params }) {
-  //
+/** @param {{ request: Request}} */
+export async function post({ request, params }) {
+  const api = axios.create({
+    ...defaultConfig,
+    baseURL: `${defaultConfig.baseURL}/${post.name}`,
+  });
 
-  return {};
+  switch (request.method) {
+    case "GET": {
+      const { data } = await api.get(`/${params.category ?? ""}`);
+      const { data: reactionsByPost } =
+        await getReactionsByPost();
+
+      return {
+        data: data.map((post) =>
+          Object.assign(post, {
+            reactions: reactionsByPost[post.title],
+          }),
+        ),
+      };
+    }
+
+    case "PUT": {
+      const { title, intent } = await getBody(request);
+      const data = await localforage.getItem("reactionsByPost");
+      /** @type {Set} */
+      const reactedUsers = data[title][intent];
+
+      if (reactedUsers.has("owo")) {
+        reactedUsers.delete("owo");
+      } else {
+        reactedUsers.add("owo");
+      }
+
+      return await localforage.setItem("reactionsByPost", data);
+    }
+
+    default:
+      throw new Error("400");
+  }
 }
 
-export const categoryLoader = async (...props) => {
-  const data = await Promise.all(
-    [getPostsByCategory, getReactionsByPost].map((cb) =>
-      cb(...props),
-    ),
-  );
-
-  return data;
-};
-
-export async function getReactionsByPost({ request, params }) {
+async function getReactionsByPost() {
   // await localforage.removeItem("reactionsByPost");
   let data = await localforage.getItem("reactionsByPost");
   if (!data) {
@@ -61,24 +87,4 @@ export async function getReactionsByPost({ request, params }) {
   }
 
   return { data };
-}
-
-export async function getPostsByCategory({ params }) {
-  return api.get(`/post/${params.category}`);
-}
-
-export async function getAllPosts({ request }) {
-  return api.get("/post");
-}
-
-export async function getUser({ request }) {
-  // await localforage.removeItem("auth");
-  const token = await localforage.getItem("auth");
-  if (!token) {
-    return { data: null };
-  }
-
-  return api.get("/me", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
 }
