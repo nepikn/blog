@@ -85,6 +85,7 @@ function NavTabs({ value, routes }) {
           component={Link}
           href={path}
           disabled={i > 1}
+          sx={{ "&:hover": { bgcolor: "action.hover" } }}
         />
       ))}
     </Tabs>
