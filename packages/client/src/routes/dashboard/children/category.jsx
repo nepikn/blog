@@ -105,7 +105,7 @@ function Reactions({ reactions }) {
     formMethod: "put",
   };
 
-  const btns = [
+  return [
     {
       value: "SentimentSatisfied",
       icons: [SentimentSatisfiedOutlined, EmojiEmotions],
@@ -126,34 +126,23 @@ function Reactions({ reactions }) {
       isIconButton: true,
       sx: { ml: "auto" },
     },
-  ].map(({ icons, ...props }) => {
+  ].map(({ icons, isIconButton, value, ...props }) => {
     /** @type {Set} */
-    const reactedUsers = reactions[props.value];
+    const reactedUsers = reactions[value];
+    const Icon = icons[!reactedUsers.has("owo") ? 0 : 1];
+    const Component = isIconButton ? IconButton : Button;
 
-    return {
-      count: reactedUsers.size,
-      Icon: icons[!reactedUsers.has("owo") ? 0 : 1],
-      ...defaultProps,
-      ...props,
-    };
+    return (
+      <Component
+        key={value}
+        name="intent"
+        value={value}
+        {...defaultProps}
+        {...(isIconButton || { startIcon: <Icon /> })}
+        {...props}
+      >
+        {isIconButton ? <Icon /> : reactedUsers.size}
+      </Component>
+    );
   });
-
-  return btns.map(
-    ({ value, Icon, isIconButton, count, ...props }) => {
-      const Component = isIconButton ? IconButton : Button;
-
-      return (
-        <Component
-          key={value}
-          name="intent"
-          value={value}
-          // todo: fix complaining startIcon
-          startIcon={isIconButton ? undefined : <Icon />}
-          {...props}
-        >
-          {isIconButton ? <Icon /> : count}
-        </Component>
-      );
-    },
-  );
 }
