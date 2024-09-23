@@ -7,7 +7,7 @@ import {
 import Auth from "../../contexts/auth";
 import { Header } from "./header";
 
-export default function Root() {
+export default function Layout() {
   const { data: user } = useLoaderData();
   const err = useActionData();
 

@@ -32,6 +32,9 @@ importers:
       '@fontsource/roboto':
         specifier: ^5.0.15
         version: 5.0.15
+      '@fontsource/scheherazade-new':
+        specifier: ^5.1.0
+        version: 5.1.0
       '@fontsource/spirax':
         specifier: ^5.0.14
         version: 5.0.14
@@ -50,6 +53,9 @@ importers:
       json-server:
         specifier: 1.0.0-beta.2
         version: 1.0.0-beta.2
+      kind-of:
+        specifier: ^6.0.3
+        version: 6.0.3
       localforage:
         specifier: ^1.10.0
         version: 1.10.0
@@ -514,6 +520,9 @@ packages:
 
   '@fontsource/roboto@5.0.15':
     resolution: {integrity: sha512-352XiID9jfwmYaHpdmS3ocGJi3PA+vOm4HzJIRfSyPEyLP6dZN8iiEKUbdAfB5YXQO3YxO2KZpR+R28q2zMiYw==}
+
+  '@fontsource/scheherazade-new@5.1.0':
+    resolution: {integrity: sha512-TvzzKDXptEnMR00YXS5euH+6hagIbh5RZQclE3utIi+7Wxl/0bggOcm116bAQtisZY1++w2GapBXO+5zJ9pSyQ==}
 
   '@fontsource/spirax@5.0.14':
     resolution: {integrity: sha512-VZsgu4N4ySsyw+AlkCp7V14dhpo8S2TWk8NyUCedFYv2vWMH+FG7DpfwvBPFzaG7gaEC91AVrEYdw125iwVhyQ==}
@@ -3398,6 +3407,8 @@ snapshots:
       levn: 0.4.1
 
   '@fontsource/roboto@5.0.15': {}
+
+  '@fontsource/scheherazade-new@5.1.0': {}
 
   '@fontsource/spirax@5.0.14': {}
 

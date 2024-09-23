@@ -1,5 +1,4 @@
 import {
-  ArrowForward,
   Dashboard,
   Equalizer,
   LogoutOutlined,
@@ -9,11 +8,6 @@ import {
 import {
   Avatar,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Divider,
   IconButton,
   Link,
@@ -22,13 +16,12 @@ import {
   Menu,
   MenuItem,
   styled,
-  TextField,
   Tooltip,
-  Typography,
 } from "@mui/material";
 import { capitalCase } from "change-case";
 import { useContext, useRef } from "react";
 import { Form } from "react-router-dom";
+import { Trademark } from "../../components";
 import Auth from "../../contexts/auth";
 import { useToggle } from "../../hooks";
 
@@ -40,10 +33,6 @@ const StyledHeader = styled("header")({
   background: "#fcfcfc",
 });
 
-const Trademark = () => (
-  <Typography variant="trademark">Mindly</Typography>
-);
-
 export function Header({ err }) {
   const user = useContext(Auth);
 
@@ -52,7 +41,7 @@ export function Header({ err }) {
       <Link href="/">
         <Trademark />
       </Link>
-      {user ? <AccountMenu /> : <SignIn err={err} />}
+      {user ? <AccountMenu /> : null}
     </StyledHeader>
   );
 }
@@ -129,75 +118,6 @@ function Items({ items }) {
         </ListItemIcon>
         <ListItemText>Log out</ListItemText>
       </MenuItem>
-    </>
-  );
-}
-
-export function SignIn({ err }) {
-  const [opening, open, close] = useToggle();
-
-  return (
-    <>
-      <Button
-        variant="contained"
-        onClick={open}
-        endIcon={<ArrowForward />}
-        sx={{
-          borderRadius: "33px",
-          width: "9em",
-          height: "2.5em",
-          fontSize: "1.5rem",
-        }}
-      >
-        Get Started
-      </Button>
-      <Dialog
-        maxWidth="xs"
-        open={opening}
-        onClose={close}
-        component={Form}
-        method="post"
-      >
-        <DialogTitle sx={{ paddingBottom: 0 }}>
-          <Trademark />
-        </DialogTitle>
-        <DialogContent sx={{ textAlign: "center" }}>
-          <DialogContentText sx={{ color: "#6767" }}>
-            Inspire Someone by your Stories and Writing
-          </DialogContentText>
-          <TextField
-            required
-            defaultValue={"owo"}
-            name="name"
-            label="Username"
-            type="text"
-            variant="standard"
-            margin="dense"
-          />
-          <TextField
-            required
-            autoFocus
-            name="password"
-            label="Password"
-            type="password"
-            variant="standard"
-            margin="dense"
-            error={!!err}
-            helperText={err ? "Wrong :(" : ""}
-            // onChange={() => setError(false)}
-          />
-          <DialogActions>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ background: "#484848" }}
-            >
-              Sign in
-            </Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
     </>
   );
 }

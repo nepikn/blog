@@ -3,24 +3,24 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import api from "../api";
-import Index from "../routes";
+import Root from "../routes";
 import Dashboard from "../routes/dashboard";
 import Category from "../routes/dashboard/children/category";
 import Error from "../routes/error";
 import Private from "../routes/private";
-import Root from "../routes/root";
+import Layout from "../routes/root/layout";
 
 const router = createBrowserRouter([
   {
     errorElement: <Error root />,
-    element: <Root />,
+    element: <Layout />,
     loader: api.auth,
     action: api.auth,
     children: [
       {
         errorElement: <Error />,
         children: [
-          { index: true, element: <Index /> },
+          { index: true, element: <Root />, action: api.auth },
           {
             path: "dashboard",
             element: (
