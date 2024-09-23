@@ -1,10 +1,10 @@
 import {
   ArrowForward,
-  EqualizerOutlined,
+  Dashboard,
+  Equalizer,
   LogoutOutlined,
-  PersonOutlined,
-  SettingsOutlined,
-  TitleOutlined,
+  Settings,
+  Title,
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -49,38 +49,40 @@ export function Header({ err }) {
 
   return (
     <StyledHeader sx={{ paddingBlock: user ? "1rem" : "2rem" }}>
-      <Trademark />
-      {user ? <UserMenu /> : <SignIn err={err} />}
+      <Link href="/">
+        <Trademark />
+      </Link>
+      {user ? <AccountMenu /> : <SignIn err={err} />}
     </StyledHeader>
   );
 }
 
-export function UserMenu({ children }) {
+export function AccountMenu({ children }) {
   const [menuOpen, handleOpen, handleClose] = useToggle();
   const anchorEl = useRef(null);
 
   const items = [
     {
-      text: "profile",
-      icon: <PersonOutlined />,
+      text: "dashboard",
+      icon: <Dashboard />,
     },
     {
       text: "your-post",
-      icon: <TitleOutlined />,
+      icon: <Title />,
     },
     {
       text: "stat",
-      icon: <EqualizerOutlined />,
+      icon: <Equalizer />,
     },
     {
       text: "settings",
-      icon: <SettingsOutlined />,
+      icon: <Settings />,
     },
-  ].map((i) => ({ disabled: true, ...i }));
+  ].map((icon, i) => ({ disabled: i > 0, ...icon }));
 
   return (
     <>
-      <Tooltip title="Account Menu">
+      <Tooltip title={capitalCase(AccountMenu.name)}>
         <IconButton ref={anchorEl} onClick={handleOpen}>
           <Avatar />
         </IconButton>
@@ -132,13 +134,13 @@ function Items({ items }) {
 }
 
 export function SignIn({ err }) {
-  const [dialogOpen, handleOpen, handleClose] = useToggle();
+  const [opening, open, close] = useToggle();
 
   return (
     <>
       <Button
         variant="contained"
-        onClick={handleOpen}
+        onClick={open}
         endIcon={<ArrowForward />}
         sx={{
           borderRadius: "33px",
@@ -151,8 +153,8 @@ export function SignIn({ err }) {
       </Button>
       <Dialog
         maxWidth="xs"
-        open={dialogOpen}
-        onClose={handleClose}
+        open={opening}
+        onClose={close}
         component={Form}
         method="post"
       >
