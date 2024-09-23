@@ -2,7 +2,6 @@ import axios from "axios";
 import localforage from "localforage";
 import { redirect } from "react-router-dom";
 import { defaultConfig, getBody } from ".";
-import { childRoutes } from "../routes/dashboard/children";
 
 export async function auth({ request, params }) {
   const api = axios.create({
@@ -18,7 +17,7 @@ export async function auth({ request, params }) {
 
         await localforage.setItem(auth.name, token);
 
-        return redirect(`/dashboard/${childRoutes[0].path}`);
+        return redirect(`/dashboard`);
       } catch (error) {
         return error;
       }

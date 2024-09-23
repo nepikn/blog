@@ -2,7 +2,7 @@ import "@fontsource/scheherazade-new";
 import { Box, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useActionData } from "react-router-dom";
-import { H1, SignIn } from "../components";
+import { H1, SignIn } from "../../components";
 
 export default function Root({ children }) {
   const err = useActionData();
