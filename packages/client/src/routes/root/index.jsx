@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useActionData } from "react-router-dom";
 import { H1, SignIn } from "../../components";
@@ -7,7 +7,7 @@ export default function Root({ children }) {
   const err = useActionData();
 
   return (
-    <Stack sx={{ flexGrow: 1 }}>
+    <Stack divider={<Divider />} sx={{ flexGrow: 1 }}>
       <Stack
         spacing={3}
         sx={{
