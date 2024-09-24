@@ -17,7 +17,7 @@ export async function auth({ request, params }) {
 
         await localforage.setItem("auth", token);
 
-        return redirect(`/dashboard`);
+        return redirect("/dashboard");
       } catch (error) {
         return error;
       }
@@ -35,9 +35,15 @@ export async function auth({ request, params }) {
         return { data: null };
       }
 
-      return api.get("", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      return api
+        .get("", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .catch(() => localforage.clear());
+    }
+
+    case "PUT": {
+      return null;
     }
 
     default:

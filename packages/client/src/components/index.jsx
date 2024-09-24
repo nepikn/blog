@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import kindOf from "kind-of";
 import { useContext } from "react";
-import { Form } from "react-router-dom";
+import { useFetcher } from "react-router-dom";
 import Auth from "../contexts/auth";
 import { useTitle, useToggle } from "../hooks";
 
@@ -19,15 +19,27 @@ export function Trademark() {
   return <Typography variant="trademark">Mindly</Typography>;
 }
 
-export function SignIn({ err }) {
-  const [opening, open, close] = useToggle();
+export function SignIn() {
+  const [open, setOpen, setClose] = useToggle();
   const user = useContext(Auth);
+  const fetcher = useFetcher();
+
+  const error = Boolean(fetcher.data);
+  const passwordProps = error && {
+    error,
+    helperText: "Wrong :(",
+    onChange: unsetHeplerText,
+  };
+
+  function unsetHeplerText() {
+    return fetcher.submit(null, { method: "put" });
+  }
 
   return (
     <>
       <Button
         variant="contained"
-        onClick={open}
+        onClick={setOpen}
         endIcon={<ArrowForward />}
         disabled={Boolean(user)}
         sx={{
@@ -41,9 +53,9 @@ export function SignIn({ err }) {
       </Button>
       <Dialog
         maxWidth="xs"
-        open={opening}
-        onClose={close}
-        component={Form}
+        open={open}
+        onClose={() => (setClose(), unsetHeplerText())}
+        component={fetcher.Form}
         method="post"
       >
         <DialogTitle sx={{ paddingBottom: 0 }}>
@@ -70,9 +82,7 @@ export function SignIn({ err }) {
             type="password"
             variant="standard"
             margin="dense"
-            error={!!err}
-            helperText={err ? "Wrong :(" : ""}
-            // onChange={() => setError(false)}
+            {...passwordProps}
           />
           <DialogActions>
             <Button
