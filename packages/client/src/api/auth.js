@@ -6,7 +6,7 @@ import { defaultConfig, getBody } from ".";
 export async function auth({ request, params }) {
   const api = axios.create({
     ...defaultConfig,
-    baseURL: `${defaultConfig.baseURL}/${auth.name}`,
+    baseURL: `${defaultConfig.baseURL}/auth`,
   });
 
   switch (request.method) {
@@ -15,7 +15,7 @@ export async function auth({ request, params }) {
       try {
         const { data: token } = await api.post("", body);
 
-        await localforage.setItem(auth.name, token);
+        await localforage.setItem("auth", token);
 
         return redirect(`/dashboard`);
       } catch (error) {
@@ -30,7 +30,7 @@ export async function auth({ request, params }) {
     }
 
     case "GET": {
-      const token = await localforage.getItem(auth.name);
+      const token = await localforage.getItem("auth");
       if (!token) {
         return { data: null };
       }

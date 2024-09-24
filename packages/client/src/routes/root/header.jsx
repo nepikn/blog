@@ -71,7 +71,7 @@ export function AccountMenu({ children }) {
 
   return (
     <>
-      <Tooltip title={capitalCase(AccountMenu.name)}>
+      <Tooltip title={capitalCase("account menu")}>
         <IconButton ref={anchorEl} onClick={handleOpen}>
           <Avatar />
         </IconButton>

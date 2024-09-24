@@ -6,7 +6,7 @@ import { defaultConfig, getBody } from ".";
 export async function post({ request, params }) {
   const api = axios.create({
     ...defaultConfig,
-    baseURL: `${defaultConfig.baseURL}/${post.name}`,
+    baseURL: `${defaultConfig.baseURL}/post`,
   });
 
   switch (request.method) {
