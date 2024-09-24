@@ -29,7 +29,7 @@ export function SignIn({ err }) {
         variant="contained"
         onClick={open}
         endIcon={<ArrowForward />}
-        disabled={user}
+        disabled={Boolean(user)}
         sx={{
           borderRadius: "33px",
           width: "9em",
