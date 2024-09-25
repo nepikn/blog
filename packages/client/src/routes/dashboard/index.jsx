@@ -13,7 +13,6 @@ import { grey } from "@mui/material/colors";
 import { capitalCase } from "change-case";
 import {
   Outlet,
-  redirect,
   useLocation,
   useNavigate,
 } from "react-router-dom";
@@ -21,9 +20,9 @@ import { H1 } from "../../components";
 import { useToggle } from "../../hooks";
 import { childRoutes } from "./children/index";
 
-Dashboard.indexLoader = () => redirect(childRoutes[0].path);
+export { Category } from "./children/category";
 
-export default function Dashboard({ children }) {
+export function Component({ children }) {
   const location = useLocation();
 
   const slug = location.pathname.split("/").at(-1);

@@ -1,13 +1,13 @@
+import { CircularProgress } from "@mui/material";
 import {
   createBrowserRouter,
+  redirect,
   RouterProvider,
 } from "react-router-dom";
 import api from "../api";
-import Dashboard from "../routes/dashboard";
-import Category from "../routes/dashboard/children/category";
+import { childRoutes } from "../routes/dashboard/children";
 import Error from "../routes/error";
 import Private from "../routes/private";
-import Root from "../routes/root";
 import Layout from "../routes/root/layout";
 
 const router = createBrowserRouter([
@@ -20,25 +20,43 @@ const router = createBrowserRouter([
       {
         errorElement: <Error />,
         children: [
-          { index: true, element: <Root />, action: api.auth },
+          {
+            index: true,
+            lazy: () => import("../routes/root"),
+            action: api.auth,
+          },
           {
             path: "dashboard",
-            element: (
-              <Private>
-                <Dashboard />
-              </Private>
-            ),
+            lazy: async () => {
+              const { Component } = await import(
+                "../routes/dashboard"
+              );
+              return {
+                element: (
+                  <Private>
+                    <Component />
+                  </Private>
+                ),
+              };
+            },
             children: [
               {
                 errorElement: <Error />,
                 children: [
                   {
                     index: true,
-                    loader: Dashboard.indexLoader,
+                    loader: () => redirect(childRoutes[0].path),
                   },
                   {
                     path: ":category",
-                    element: <Category />,
+                    lazy: async () => {
+                      const { Category } = await import(
+                        "../routes/dashboard"
+                      );
+                      return {
+                        element: <Category />,
+                      };
+                    },
                     loader: api.post,
                     action: api.post,
                   },
@@ -52,6 +70,11 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default function Router() {
-  return <RouterProvider router={router} />;
+export default function App() {
+  return (
+    <RouterProvider
+      router={router}
+      fallbackElement={<CircularProgress />}
+    />
+  );
 }

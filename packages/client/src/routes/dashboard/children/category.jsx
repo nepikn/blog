@@ -26,29 +26,21 @@ import {
 } from "@mui/material";
 import { useFetcher, useLoaderData } from "react-router-dom";
 
-export default function Category({ children }) {
-  // const [posts, reactionsByPost] = useLoaderData().map(
-  //   (res) => res.data,
-  // );
+export function Category({ children }) {
   const { data: posts } = useLoaderData();
 
   return (
     <List>
       {posts.map((post, i) => (
         <ListItem key={post.title}>
-          <Post
-            post={post}
-            // reactions={reactionsByPost[post.title]}
-          />
+          <Post post={post} />
         </ListItem>
       ))}
     </List>
   );
 }
 
-function Post({
-  post: { author, title, abstract, reactions } /* , reactions  */,
-}) {
+function Post({ post: { author, title, abstract, reactions } }) {
   const fetcher = useFetcher();
 
   return (
@@ -63,9 +55,7 @@ function Post({
           </IconButton>
         }
       />
-      <Stack
-        direction={"row"} /* sx={{ alignItems: "center" }} */
-      >
+      <Stack direction={"row"}>
         <Stack>
           <CardContent
             component={Typography}

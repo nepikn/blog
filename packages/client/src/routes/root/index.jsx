@@ -3,7 +3,7 @@ import { grey } from "@mui/material/colors";
 import { useActionData } from "react-router-dom";
 import { H1, SignIn } from "../../components";
 
-export default function Root({ children }) {
+export function Component({ children }) {
   const err = useActionData();
 
   return (
