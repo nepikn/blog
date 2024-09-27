@@ -13,7 +13,7 @@ export default function Layout() {
 
   return (
     <Auth.Provider value={user}>
-      <Stack divider={<Divider />} sx={{ minHeight: "100vh" }}>
+      <Stack divider={<Divider />}>
         <Header err={err} />
         <Stack component={"main"} sx={{ flexGrow: 1 }}>
           <Outlet />

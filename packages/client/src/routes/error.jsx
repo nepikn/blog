@@ -15,12 +15,11 @@ export default function Error({ root }) {
 
   return (
     <Card
+      variant="outline"
       component={Stack}
       sx={{
         alignItems: "center",
         justifyContent: "center",
-        flexGrow: 1,
-        minHeight: root ? "100vh" : "auto",
       }}
     >
       <CardHeader

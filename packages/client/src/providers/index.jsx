@@ -1,4 +1,4 @@
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Stack } from "@mui/material";
 import { lazy, Suspense } from "react";
 // import Router from "./router";
 import Theme from "./theme";
@@ -9,10 +9,32 @@ const Router = lazy(() => import("./router"));
 export default function App({ children }) {
   return (
     <Theme>
-      <Suspense fallback={<CircularProgress />}>
+      <Loading>
         <Router />
-      </Suspense>
+      </Loading>
     </Theme>
+  );
+}
+
+function Loading({ children }) {
+  return (
+    <Stack
+      sx={{
+        minHeight: "100vh",
+        justifyContent: "center",
+        "> *": { flexGrow: 1 },
+      }}
+    >
+      <Suspense
+        fallback={
+          <Stack sx={{ placeItems: "center" }}>
+            <CircularProgress />
+          </Stack>
+        }
+      >
+        {children}
+      </Suspense>
+    </Stack>
   );
 }
 
