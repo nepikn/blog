@@ -11,7 +11,7 @@ const CustomLink = forwardRef(function CustomLink(
   { href, ...props },
   ref,
 ) {
-  return <RouterLink ref={ref} to={href} {...props}></RouterLink>;
+  return <RouterLink ref={ref} to={href} {...props} />;
 });
 
 const theme = createTheme({
@@ -41,7 +41,10 @@ const theme = createTheme({
   },
   components: {
     MuiLink: {
-      defaultProps: { underline: "none", component: CustomLink },
+      defaultProps: { component: CustomLink, underline: "none" },
+    },
+    MuiButtonBase: {
+      defaultProps: { LinkComponent: CustomLink },
     },
   },
 });
