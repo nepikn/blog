@@ -2,9 +2,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { config } from "dotenv";
 import express from "express";
-import { readFileSync } from "fs";
 import helmet from "helmet";
-import https from "https";
 import morgan from "morgan";
 import routers from "./src/routers";
 
@@ -22,24 +20,14 @@ app.use(cookieParser(secret));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(
-//   session({
-//     secret,
-//     name: "sessionId",
-//     resave: false,
-//     saveUninitialized: false,
-//     // cookie: { secure: true, httpOnly: true },
-//   })
-// );
-
-app.use(
-  cors({
-    origin: (env.ALLOWED_ORIGINS ?? "")
-      .split(",")
-      .concat(/^http:\/\/localhost(:\d+)?$/),
-    credentials: true,
-  }),
-);
+if (!isProd) {
+  app.use(
+    cors({
+      origin: true,
+      credentials: true,
+    }),
+  );
+}
 
 for (const key of Object.keys(routers)) {
   app.use(`${env.API_BASE ?? ""}/${key}`, routers[key]);
@@ -53,18 +41,18 @@ app.use(function handleErr(err, req, res, next) {
   }
 });
 
-const server = isProd
-  ? https.createServer(
-      {
-        // cert: env.CERT,
-        // key: env.KEY,
-        cert: readFileSync(env.CERT),
-        key: readFileSync(env.KEY),
-      },
-      app,
-    )
-  : app;
+// isProd
+//   ? https.createServer(
+//       {
+//         cert: env.CERT,
+//         key: env.KEY,
+//         // cert: readFileSync(env.CERT),
+//         // key: readFileSync(env.KEY),
+//       },
+//       app,
+//     )
+//   : app;
 
-server.listen(port, () => {
+app.listen(port, () => {
   console.log(`running on port: ${port}`);
 });
