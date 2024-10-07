@@ -30,7 +30,7 @@ export function Category({ children }) {
   const { data: posts } = useLoaderData();
 
   return (
-    <List>
+    <List sx={{ flexGrow: 1 }}>
       {posts.map((post, i) => (
         <ListItem key={post.title}>
           <Post post={post} />

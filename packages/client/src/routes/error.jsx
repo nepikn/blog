@@ -18,6 +18,7 @@ export default function Error({ root }) {
       variant="outline"
       component={Stack}
       sx={{
+        flexGrow: 1,
         alignItems: "center",
         justifyContent: "center",
       }}

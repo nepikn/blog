@@ -22,7 +22,6 @@ function Loading({ children }) {
       sx={{
         minHeight: "100vh",
         justifyContent: "center",
-        "> *": { flexGrow: 1 },
       }}
     >
       <Suspense
@@ -40,6 +39,6 @@ function Loading({ children }) {
 
 function delayImport(path) {
   return new Promise((res) => {
-    setTimeout(() => res(import(path)), 800);
+    setTimeout(() => res(import(path)), 80);
   });
 }

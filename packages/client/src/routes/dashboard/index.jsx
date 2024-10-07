@@ -42,9 +42,7 @@ export function Component({ children }) {
           value={tabIndex == -1 ? false : tabIndex}
           routes={childRoutes}
         />
-        <Stack sx={{ flexGrow: 1, "> *": { flexGrow: 1 } }}>
-          <Outlet />
-        </Stack>
+        <Outlet />
       </Stack>
       <Stack>
         <Chips
