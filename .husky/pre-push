@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+site=blog
+dest=/var/www/subdomain
+
+cd packages/client
+
+archive=.gz
+source=dist
+
+pnpm build
+tar -caf $archive $source
+scp $archive aws:$dest
+rm $archive
+
+ssh aws "cd $dest && rm -fr $site && tar -xaf $archive && mv $source $site && rm $archive"
