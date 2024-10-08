@@ -25,15 +25,16 @@ export async function post({ request, params }) {
     }
 
     case "PUT": {
-      const { title, intent } = await getBody(request);
+      const { title, username, reaction } =
+        await getBody(request);
       const data = await localforage.getItem("reactionsByPost");
       /** @type {Set} */
-      const reactedUsers = data[title][intent];
+      const reactedUsers = data[title][reaction];
 
-      if (reactedUsers.has("owo")) {
-        reactedUsers.delete("owo");
+      if (reactedUsers.has(username)) {
+        reactedUsers.delete(username);
       } else {
-        reactedUsers.add("owo");
+        reactedUsers.add(username);
       }
 
       return await localforage.setItem("reactionsByPost", data);

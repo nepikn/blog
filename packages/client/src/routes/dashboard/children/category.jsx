@@ -24,7 +24,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useContext } from "react";
 import { useFetcher, useLoaderData } from "react-router-dom";
+import Auth from "../../../contexts/auth";
 
 export function Category({ children }) {
   const { data: posts } = useLoaderData();
@@ -42,10 +44,12 @@ export function Category({ children }) {
 
 function Post({ post: { author, title, abstract, reactions } }) {
   const fetcher = useFetcher();
+  const user = useContext(Auth);
 
   return (
     <Card component={fetcher.Form}>
       <input hidden name="title" defaultValue={title} />
+      <input hidden name="username" defaultValue={user.name} />
       <CardHeader
         avatar={<Avatar />}
         title={author}
@@ -72,7 +76,7 @@ function Post({ post: { author, title, abstract, reactions } }) {
             {abstract}
           </CardContent>
           <CardActions disableSpacing>
-            <Reactions reactions={reactions} />
+            <Reactions reactions={reactions} user={user} />
           </CardActions>
         </Stack>
         <CardMedia sx={{ width: 1 / 3, flexShrink: 0 }}>
@@ -89,7 +93,7 @@ function Post({ post: { author, title, abstract, reactions } }) {
   );
 }
 
-function Reactions({ reactions }) {
+function Reactions({ reactions, user }) {
   const defaultProps = {
     type: "submit",
     formMethod: "put",
@@ -119,13 +123,13 @@ function Reactions({ reactions }) {
   ].map(({ icons, isIconButton, value, ...props }) => {
     /** @type {Set} */
     const reactedUsers = reactions[value];
-    const Icon = icons[!reactedUsers.has("owo") ? 0 : 1];
+    const Icon = icons[!reactedUsers.has(user.name) ? 0 : 1];
     const Component = isIconButton ? IconButton : Button;
 
     return (
       <Component
         key={value}
-        name="intent"
+        name="reaction"
         value={value}
         {...defaultProps}
         {...(isIconButton || { startIcon: <Icon /> })}
