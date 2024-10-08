@@ -6,6 +6,9 @@ export const post = express
   .get("", (req, res, next) => {
     res.json(Post.getAll());
   })
+  .get("/reactions", (req, res, next) => {
+    res.json(Post.getReactions());
+  })
   .get("/:category", (req, res, next) => {
     const { category } = req.params;
     const data = Post.getByCategory(category);

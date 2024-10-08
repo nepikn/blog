@@ -1,3 +1,36 @@
+const reactions = {
+  "Exploring the Future of Quantum Computing": {
+    SentimentSatisfied: 117,
+    ThumbUp: 312,
+    ChatBubble: 226,
+    Bookmark: 0,
+  },
+  "The Rise of Functional Programming": {
+    SentimentSatisfied: 189,
+    ThumbUp: 136,
+    ChatBubble: 48,
+    Bookmark: 0,
+  },
+  "Machine Learning in Software Development": {
+    SentimentSatisfied: 267,
+    ThumbUp: 355,
+    ChatBubble: 207,
+    Bookmark: 0,
+  },
+  "Cybersecurity Threats in Modern Web Development": {
+    SentimentSatisfied: 288,
+    ThumbUp: 214,
+    ChatBubble: 250,
+    Bookmark: 0,
+  },
+};
+
+for (const counts of Object.values(reactions)) {
+  for (const [reaction, count] of Object.entries(counts)) {
+    counts[reaction] = [...Array(count).keys()];
+  }
+}
+
 export default class Post {
   static posts = [
     {
@@ -29,6 +62,10 @@ export default class Post {
         "An in-depth analysis of the latest cybersecurity threats facing web developers, including cross-site scripting (XSS), SQL injection, and man-in-the-middle attacks. The article provides best practices for securing web applications.",
     },
   ];
+
+  static getReactions() {
+    return reactions;
+  }
 
   static getByCategory(category) {
     return this.posts.filter((post) => post.category == category);
