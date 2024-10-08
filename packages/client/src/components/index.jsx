@@ -71,6 +71,7 @@ export function SignIn() {
             name="name"
             label="Username"
             type="text"
+            autoComplete="username"
             variant="standard"
             margin="dense"
           />
@@ -80,6 +81,7 @@ export function SignIn() {
             name="password"
             label="Password"
             type="password"
+            autoComplete="current-password"
             variant="standard"
             margin="dense"
             {...passwordProps}
