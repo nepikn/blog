@@ -5,7 +5,7 @@ import {
   useLoaderData,
 } from "react-router-dom";
 import Auth from "../../contexts/auth";
-import { Header } from "./header";
+import Header from "./header";
 
 export default function Layout() {
   const { data: user } = useLoaderData();

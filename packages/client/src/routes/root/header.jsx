@@ -33,7 +33,7 @@ const StyledHeader = styled("header")({
   background: "#fcfcfc",
 });
 
-export function Header({ err }) {
+export default function Header({ err }) {
   const user = useContext(Auth);
 
   return (
