@@ -4,8 +4,8 @@
   "scripts": {
     "prepare": "node ./start/server.js",
     "dev": "nodemon --import=extensionless/register",
-    "debug": "cross-env DEBUG=express:router & nodemon --import=extensionless/register",
-    "start": "cross-env NODE_ENV=production node --import=extensionless/register index.js",
+    "debug": "DEBUG=express:router & nodemon --import=extensionless/register",
+    "start": "NODE_ENV=production node --import=extensionless/register index.js",
     "test": "",
     "db:init": "sequelize-cli init",
     "model:generate": "sequelize-cli model:generate --name Comment --attributes content:string",
@@ -16,7 +16,6 @@
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.9.0",
-    "cross-env": "^7.0.3",
     "nodemon": "^3.1.4"
   },
   "dependencies": {
