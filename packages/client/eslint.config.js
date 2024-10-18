@@ -8,7 +8,7 @@ import globals from "globals";
 export default [
   { ignores: ["dist"] },
   {
-    files: ["**/*.{js,jsx}"],
+    files: ["**/*.js?(x)"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -36,6 +36,12 @@ export default [
       ],
       "no-unused-vars": "off",
       "react/prop-types": "off",
+    },
+  },
+  {
+    files: ["**/test/**.jsx?(x)"],
+    languageOptions: {
+      globals: globals.node,
     },
   },
 ];
