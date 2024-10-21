@@ -1,5 +1,6 @@
 import axios from "axios";
 import localforage from "localforage";
+import mapObject from "map-obj";
 import { defaultConfig, getBody } from ".";
 
 /** @param {{ request: Request}} */
@@ -52,6 +53,16 @@ export async function post({ request, params }) {
     }
 
     const res = await api.get("/reactions");
+
+    Object.assign(res, {
+      data: mapObject(res.data, (title, reactionsByPost) => [
+        title,
+        mapObject(reactionsByPost, (reaction, reactedUsers) => [
+          reaction,
+          new Set(reactedUsers),
+        ]),
+      ]),
+    });
 
     await localforage.setItem("reactionsByPost", res.data);
 
