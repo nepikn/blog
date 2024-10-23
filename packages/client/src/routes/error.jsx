@@ -9,9 +9,11 @@ import {
 } from "@mui/material";
 import { useRouteError } from "react-router-dom";
 
-export default function Error({ root }) {
+export default function Error({ log = true }) {
   const error = useRouteError();
-  console.error(error);
+  if (log) {
+    console.error(error);
+  }
 
   return (
     <Card

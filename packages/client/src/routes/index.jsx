@@ -8,7 +8,7 @@ import Layout from "./root/layout";
 /** @type {import("react-router-dom").RouteObject} */
 export default [
   {
-    errorElement: <Error root />,
+    errorElement: <Error />,
     element: <Layout />,
     loader: api.auth,
     action: api.auth,
