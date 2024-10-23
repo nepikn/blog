@@ -6,33 +6,57 @@ import {
   createMemoryRouter,
   RouterProvider,
 } from "react-router-dom";
+import typeOf from "type-detect";
 import { afterEach } from "vitest";
 
 afterEach(cleanup);
 
 /**
- * @param {React.JSX.Element | import('react-router-dom').RouteObject | import('react-router-dom').RouteObject[]} elemOrRoutes
- * @param {(user: import("@testing-library/user-event").UserEvent)} update
+ * @typedef {{ entry: string } & import('react-router-dom').RouteObject} TestRoute
+ * @param {React.JSX.Element | TestRoute | TestRoute[]} elemOrTestRoutes
+ * @param {(user: import("@testig-library/user-event").UserEvent)} update
  * */
 export async function setup(
-  elemOrRoutes,
+  elemOrTestRoutes,
   update = async () => {},
 ) {
   const user = userEvent.setup();
-  const routes = Array.isArray(elemOrRoutes)
-    ? elemOrRoutes
-    : [
-        Object.assign(
-          { path: "/" },
-          isValidElement(elemOrRoutes)
-            ? { element: elemOrRoutes }
-            : elemOrRoutes,
-        ),
-      ];
-  const router = createMemoryRouter(routes);
-  const result = render(<RouterProvider router={router} />);
+  const result = getRenderResult(elemOrTestRoutes);
 
   await update(user);
 
   return { user, ...result };
+}
+
+function getRenderResult(elemOrRoutes) {
+  /** @type {import('react-router-dom').RouteObject[]} */
+  const routes = getRoutes(elemOrRoutes);
+  const router = createMemoryRouter(routes, {
+    initialEntries: getEntries(routes),
+  });
+
+  return render(<RouterProvider router={router} />);
+}
+
+function getRoutes(elemOrRoutes) {
+  switch (typeOf(elemOrRoutes)) {
+    case "Array":
+      return elemOrRoutes;
+    case "Object":
+      return [
+        isValidElement(elemOrRoutes)
+          ? { path: "/", element: elemOrRoutes }
+          : elemOrRoutes,
+      ];
+    default:
+      throw new Error("unhandled case");
+  }
+}
+
+function getEntries(routes) {
+  const entries = routes
+    .map((route) => route.entry)
+    .filter((entry) => entry);
+
+  return entries.length ? entries : ["/"];
 }
