@@ -9,9 +9,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import kindOf from "kind-of";
 import { useContext } from "react";
 import { useFetcher } from "react-router-dom";
+import typeOf from "type-detect";
 import Auth from "../contexts/auth";
 import { useTitle, useToggle } from "../hooks";
 
@@ -121,15 +121,15 @@ export const H1 = ({ children, hidden, ref, ...props }) => {
 };
 
 function getTextContent(component) {
-  const type = kindOf(component);
+  const type = typeOf(component);
 
   switch (type) {
-    case "array": {
+    case "Array": {
       return component
         .map((child) => getTextContent(child))
         .join(" ");
     }
-    case "object": {
+    case "Object": {
       return getTextContent(component.props.children);
     }
     case "undefined": {
