@@ -81,7 +81,7 @@ export function AccountMenu({ children }) {
         anchorEl={anchorEl.current}
         onClick={handleClose}
       >
-        <Form>
+        <Form method="delete">
           <Items items={items} />
         </Form>
       </Menu>
@@ -109,7 +109,6 @@ function Items({ items }) {
       <MenuItem
         component={Button}
         type="submit"
-        formMethod="delete"
         fullWidth
         sx={{ "*": { color: "warning.main" } }}
       >
