@@ -10,7 +10,6 @@
 - [展望](#展望)
 - [相關資料](#相關資料)
 - [素材](#素材)
-- [協力／貢獻](#協力貢獻)
 
 ## 預期功能
 
@@ -24,20 +23,19 @@
 
 > [部署於個人網域](https://blog.unconscious.cc)
 
-|                                                                                  |                                                                                            |
-| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| ![root](https://raw.githubusercontent.com/nepikn/REPO/main/screenshots/root.jpg) | ![signin](https://raw.githubusercontent.com/nepikn/REPO/main/screenshots/signin.jpg)       |
-| ![menu](https://raw.githubusercontent.com/nepikn/REPO/main/screenshots/menu.jpg) | ![dashboard](https://raw.githubusercontent.com/nepikn/REPO/main/screenshots/dashboard.jpg) |
+| 首頁                                                                   | 登入                                                                       | 菜單                                                                   | 儀表板                                                                           |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| ![root](https://github.com/nepikn/blog/blob/main/screenshots/root.jpg) | ![signin](https://github.com/nepikn/blog/blob/main/screenshots/signin.jpg) | ![menu](https://github.com/nepikn/blog/blob/main/screenshots/menu.jpg) | ![dashboard](https://github.com/nepikn/blog/blob/main/screenshots/dashboard.jpg) |
 
 ## 主要技術
 
-- client
+- 前端
   - `react` v18
   - `react-router-dom` v6
   - `@mui/material` v6
-- server
+- 後端
   - `express` v4
-- testing
+- 測試
   - `vitest` v2
   - `@testing-library/react` v16
 
