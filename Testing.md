@@ -60,7 +60,7 @@ module.exports = {
 ```
 
 ```javascript
-// setup/jest.js
+// jest.setup.js
 import "@testing-library/jest-dom";
 ```
 
@@ -91,24 +91,31 @@ export default defineConfig({
   test: {
     // simulates browser
     environment: "jsdom",
-    setupFiles: ["./setup/vitest.js"],
+    // setup before each test file
+    setupFiles: "./setup/vitest.js",
   },
 });
 ```
 
 ```javascript
-// setup/vitest.js
+// vitest.setup.js
 import "@testing-library/jest-dom/vitest";
+import { afterEach } from "vitest";
+
+afterEach(cleanup);
 ```
 
 ### Globals / Test
 
 - `{before | after}{All | Each}(CB, TIMEOUT=5000)`
-- `test[.only](NAME, CB, TIMEOUT=5000)`
-  - `CB` either
+- `test[.only]`
+  - Jest `(NAME, CB, TIMEOUT=5000)` where `CB` either
     - `() => { ... }`
     - `() => PROMISE`
     - `(done) => { ...; done(ERROR?) }`
+  - Vitest `(NAME, OPTIONS, CB)` where `CB` either
+    - `() => { ... }`
+    - `() => PROMISE`
 - `describe[.only](NAME, CB)` group tests
 
 #### Configue Globals / Test
@@ -154,14 +161,17 @@ import "@testing-library/jest-dom/vitest";
 
 ### Mock
 
-|               | Jest            | Vitest                         |
-| ------------- | --------------- | ------------------------------ |
-| `HELPER`      | `jest`          | `vi`                           |
-| `GET_EXPORTS` | `() => EXPORTS` | `(importOriginal?) => EXPORTS` |
+|             | Jest            | Vitest                         |
+| ----------- | --------------- | ------------------------------ |
+| `HELPER`    | `jest`          | `vi`                           |
+| `EXPORTS()` | `() => EXPORTS` | `(importOriginal?) => EXPORTS` |
 
 - `MOCK_INSTANCE`
-  - `HELPER.fn(GET_EXPORTS?)`
-  - `(HELPER.mock('MODULE_PATH', GET_EXPORTS), MODULE[.METHOD])`
+  - `HELPER.fn(EXPORTS()?)`
+  - `(HELPER.mock('MODULE_PATH', EXPORTS()), MODULE[.METHOD])`
+- Vitest additional supports
+  - `vi.mock(..., { spy: true })`
+  - `vi.mock(import('MODULE_PATH'), ... )`
 - method
   - `.mock` given called by `...args1` `...args2` ... `...argsN`
     - `.calls` returns `[args1, args2, ..., argsN]`
@@ -169,7 +179,7 @@ import "@testing-library/jest-dom/vitest";
       - type `'return' | 'throw' | 'incomplete'`
       - value `CB(...argsN)`
   - `.mock{Return | Resolved | Rejected}Value[Once](VAL)`
-  - `.mockImplementation[Once](GET_EXPORTS)`
+  - `.mockImplementation[Once](EXPORTS())`
   - `.mockReturnThis()` implent `function() { return this }`
   - `.mockName(NAME)`
 
@@ -185,6 +195,8 @@ import "@testing-library/jest-dom/vitest";
 - `screen.QUERY(TEXT_MATCH, OPTIONS)`
 - `within(NODE).QUERY(TEXT_MATCH, OPTIONS)`
 - `QUERY(NODE, TEXT_MATCH, OPTIONS)`
+
+> `screen` essentially `within(document.body)`
 
 #### `OPTIONS`
 
@@ -213,6 +225,7 @@ import "@testing-library/jest-dom/vitest";
 
 - `prettyDOM(NODE, ...)` prints the DOM tree of `NODE`
 - `screen.debug(NODE=document.body)` essentially `console.log(prettyDOM(NODE))`
+- `screen.logTestingPlaygroundURL(NODE?)`
 
 ### [Fire Events](https://testing-library.com/docs/dom-testing-library/api-events/)
 
