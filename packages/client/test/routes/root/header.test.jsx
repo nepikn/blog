@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/dom";
+import { screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import api from "../../../src/api";
 import Auth from "../../../src/contexts/auth";
