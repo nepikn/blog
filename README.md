@@ -4,6 +4,7 @@
 
 - [預期功能](#預期功能)
 - [展示](#展示)
+- [API](#api)
 - [主要技術](#主要技術)
 - [指令](#指令)
 - [學習內容](#學習內容)
@@ -26,6 +27,16 @@
 | 首頁                                                                   | 登入                                                                       | 菜單                                                                   | 儀表板                                                                           |
 | ---------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | ![root](https://github.com/nepikn/blog/blob/main/screenshots/root.jpg) | ![signin](https://github.com/nepikn/blog/blob/main/screenshots/signin.jpg) | ![menu](https://github.com/nepikn/blog/blob/main/screenshots/menu.jpg) | ![dashboard](https://github.com/nepikn/blog/blob/main/screenshots/dashboard.jpg) |
+
+## API
+
+| 路徑              | 方法   | 用途                 |
+| ----------------- | ------ | -------------------- |
+| `/auth`           | `POST` | 核對密碼、簽署 token |
+| `/auth`           | `GET`  | 驗證、解碼 token     |
+| `/post`           | `GET`  | 查詢所有貼文         |
+| `/post/reactions` | `GET`  | 查詢所有貼文的回應   |
+| `/post/:category` | `GET`  | 查詢特定類別的貼文   |
 
 ## 主要技術
 
@@ -52,6 +63,32 @@ pnpm test
 
 ## 學習內容
 
+- 調整 Apache 使其
+  - 回應對於三級網域的請求
+  - 反向代理 `/api` 到後端伺服器的 port
+  - 對於無效的請求路徑一律回應 `index.html` 以便前端管理路由
+
+```apache
+# /etc/apache2/sites-available/subdomain-ssl.conf
+<VirtualHost *:443>
+    ServerName blog.unconscious.cc
+    VirtualDocumentRoot /var/www/subdomain/%1
+
+    ProxyRequests Off
+    ProxyPass /api http://localhost:3001
+    ProxyPassReverse /api http://localhost:3001
+
+    <Directory ".">
+        RewriteEngine On
+
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . index.html [L]
+    </Directory>
+    # ...
+</VirtualHost>
+```
+
 - [JWT 學習歷程](https://hackmd.io/HV43oYz0S5q1z4mDRGK23g?view#JWT)
   - 將用戶 ID 編碼為 JWT
   - 驗證 JWT 完整性
@@ -62,9 +99,7 @@ export const auth = express
   .Router()
   .post("", (req, res, next) => {
     const { name, password } = req.body;
-
     // ...
-
     const token = jwt.sign({ name }, process.env.JWT_SECRET);
 
     res.json(token);
@@ -72,7 +107,6 @@ export const auth = express
   .get("", (req, res, next) => {
     try {
       // ...
-
       const secret = process.env.JWT_SECRET;
       const decoded = jwt.verify(token, secret);
 
@@ -114,7 +148,6 @@ function Reactions({ reactions, title }) {
     // ...
   ].map(({ icons, isIconButton, value, ...props }) => {
     // ...
-
     return (
       <fetcher.Form method="put">
         <input hidden name="title" defaultValue={title} />
