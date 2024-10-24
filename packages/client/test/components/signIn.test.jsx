@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import api from "../../src/api";
-import { SignIn } from "../../src/components";
+import SignIn from "../../src/components/signIn";
 import { Component } from "../../src/routes/dashboard";
 import { setup } from "../setup";
 

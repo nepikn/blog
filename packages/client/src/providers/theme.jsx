@@ -17,9 +17,6 @@ const CustomLink = forwardRef(function CustomLink(
 const theme = createTheme({
   palette: {
     primary: { main: "#2D2D2D" },
-    text: {
-      // secondary: ""
-    },
   },
   typography: {
     button: { textTransform: "none" },

@@ -1,7 +1,8 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useActionData } from "react-router-dom";
-import { H1, SignIn } from "../../components";
+import { H1 } from "../../components";
+import SignIn from "../../components/signIn";
 
 export function Component({ children }) {
   const err = useActionData();
