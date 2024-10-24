@@ -4,14 +4,7 @@
   "scripts": {
     "prepare": "node ./start/server.js",
     "dev": "nodemon --import=extensionless/register",
-    "debug": "DEBUG=express:router & nodemon --import=extensionless/register",
-    "start": "NODE_ENV=production node --import=extensionless/register index.js",
-    "test": "",
-    "db:init": "sequelize-cli init",
-    "model:generate": "sequelize-cli model:generate --name Comment --attributes content:string",
-    "db:migrate": "sequelize-cli db:migrate",
-    "seed:generate": "sequelize-cli seed:generate --name",
-    "db:seed:all": "sequelize-cli db:seed:all"
+    "start": "NODE_ENV=production node --import=extensionless/register $npm_package_main"
   },
   "license": "MIT",
   "devDependencies": {
@@ -19,19 +12,14 @@
     "nodemon": "^3.1.4"
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "express-session": "^1.18.0",
     "extensionless": "^1.9.9",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0",
-    "mysql2": "^3.10.3",
-    "sequelize": "^6.37.3",
-    "sequelize-cli": "^6.6.2"
+    "morgan": "^1.10.0"
   },
   "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
 }
