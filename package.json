@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm -r dev",
-    "test": "pnpm -r test",
+    "test": "pnpm start:server && pnpm -r test",
     "start:server": "pnpm -F ./packages/server start"
   },
   "license": "MIT",

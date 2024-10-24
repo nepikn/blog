@@ -15,7 +15,7 @@ describe("Header", () => {
       (user) => user.click(screen.getByRole("button")),
     );
 
-    screen.getByText(/dashboard/i);
+    expect(screen.getByText(/dashboard/i));
   });
 
   it("lets authed users sign out", async () => {

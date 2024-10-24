@@ -35,15 +35,19 @@ describe("Dashboard", () => {
           name: /exploring the future/i,
         });
         await user.click(
-          screen.getByRole("tab", { name: /trending/i }),
+          await screen.findByRole("tab", { name: /trending/i }),
         );
       },
     );
 
     expect(
-      await screen.findByRole("heading", {
-        name: /machine learning/i,
-      }),
+      await screen.findByRole(
+        "heading",
+        {
+          name: /machine learning/i,
+        },
+        { timeout: 2000 },
+      ),
     );
   });
 });
